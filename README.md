@@ -28,6 +28,23 @@ Every example below is a real finding from one of the [test reviews](#real-world
 | **Flags translation risks** | <img src="tests/word-wheel/design-review/screenshots/issues/DT-007_nav-label-padding.png" width="240" alt="Label padding"> | "More games" has **12px** padding: Arabic or Hebrew won't fit |
 | **Audits the palette** | <img src="tests/word-wheel/design-review/screenshots/screens/review-01_home_palette.png" width="240" alt="Palette"> | Real colors on screen as hex with share: 4 teals, 1 yellow, 1 cream |
 
+### Beyond pixels
+
+The [e-commerce blind test](tests/ecommerce-site/README.md) checks what a shopper runs into, not only what a screenshot shows. The skill rendered the pages itself and forced each state (click, type, hover, keyboard focus) on a copy of the page.
+
+| Capability | Example | What it found |
+|---|---|---|
+| **Checks the numbers** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-016_discount-math.png" width="240" alt="Discount math"> | "Save 20%" badge on **$89 → $74**, which is **16.9%** off |
+| **Catches broken promises across pages** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-035_shipping-charged.png" width="240" alt="Shipping charged"> | Checkout charges **$5.99** shipping; the landing page promised free delivery over $60 |
+| **Tests hover, focus and error states** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-042_place-order-hover.png" width="240" alt="Hover contrast"> | "Place order" is fine at rest (5.17:1) but drops to **2.54:1** on hover |
+| **Walks the page with the keyboard** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-038_cvc-expiry-tab-order.png" width="240" alt="Tab order"> | Tab goes **CVC → Expiry** while the screen shows Expiry → CVC |
+| **Types into the forms** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-037_expiry-maxlength.png" width="240" alt="Expiry maxlength"> | Placeholder asks for "MM/YY" (5 chars) but the field stops at **4**: "12/2" |
+| **Pushes inputs past their limits** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-021_qty-negative.png" width="240" alt="Negative quantity"> | Three taps on minus: quantity **−2**, no lower limit |
+| **Renders at phone width itself** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-036_checkout-mobile-overflow.png" width="240" alt="Mobile overflow"> | At **390px** the form cards run **8px** past the screen edge |
+| **Compares pages of one product** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-052_brand-inconsistency.png" width="240" alt="Brand inconsistency"> | Three brand names, three primary colors, headers **72 / 64 / 64px** across one shopping flow |
+
+Also part of every review: a consumer verdict and a score out of 10, 2–3 fixes per issue with a pick, and a task board with before/after proof once you approve. Competitor comparison, game feel and economy, and RTL checks run when they apply. See [Features](#features).
+
 ### Perception tests
 
 Blur, grayscale and three colorblind simulations in one sheet. They show problems a normal look misses.
