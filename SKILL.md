@@ -41,7 +41,7 @@ Run them with the skill's own environment when it exists: `<skill dir>/.venv/bin
 - `palette.py` — dominant colors as hex + swatch strip
 - `perception.py` — blur/squint, grayscale, deuteranopia, protanopia, tritanopia contact sheet
 - `compare.py` — before/after proof images and competitor comparison boards
-- `ui_lint.py` — scans Godot, React Native / JS and HTML/CSS for emoji icons, mismatched sibling sizes, token violations, overflow risks, removed focus outlines and pages with no phone layout
+- `ui_lint.py` — scans Godot, React Native / JS and HTML/CSS for emoji icons, token sprawl and violations and overflow risks; Godot rows for mismatched sibling heights; HTML/CSS for removed focus outlines and pages with no phone layout. It reads code, not the rendered page: measure sizes with the scripts above
 - `templates/ui-tokens.json` — starter tokens file
 
 Measure with the scripts whenever a screenshot file exists. Look at every annotated image before sending it; fix overlapping or clipped labels.

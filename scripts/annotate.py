@@ -6,11 +6,13 @@ Usage:
 
 spec.json:
 {
+  "scale": 1.2,                                        # optional: label size. Default min(w, h) / 500 suits
+                                                       # 2-3x phone shots; use ~1-1.5 for 1x desktop captures
   "issues": [
     {"n": "DT-018", "box": [x1, y1, x2, y2]},          # red badge with the task id (or a number)
     {"n": "DT-005", "box": [x1, y1, x2, y2], "shape": "circle"},
     {"n": "DT-005", "box": [x1, y1, x2, y2], "badge": false},  # same issue elsewhere: thin box, no label
-    {"n": "DT-009", "box": [x1, y1, x2, y2], "badge_xy": [x, y]}   # optional: put the badge exactly here
+    {"n": "DT-009", "box": [x1, y1, x2, y2], "badge_xy": [x, y]}   # optional: badge CENTER goes exactly here
   ],
 Badges are placed outside their box when possible and never on another badge or a marked box.
 When the only free spot would cover unmarked text, pass "badge_xy" with an empty spot.
@@ -66,7 +68,7 @@ def main():
     src, spec_path, out = sys.argv[1:4]
     im = Image.open(src).convert("RGBA")
     spec = json.load(open(spec_path))
-    scale = max(1.0, min(im.size) / 500)
+    scale = spec.get("scale") or max(1.0, min(im.size) / 500)
     lw = max(3, int(3 * scale))
     overlay = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(overlay)

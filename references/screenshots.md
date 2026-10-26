@@ -40,6 +40,7 @@ python scripts/annotate.py screens/review-03_shop.png spec.json screens/review-0
 python scripts/issue_shots.py issues-spec.json docs/harsh-design-critic/design-review/screenshots/issues
 ```
 `issue_shots.py` spec: `source`, then per issue `id`, `slug`, `title`, `severity`, `box`, optional `extra_boxes` (same issue elsewhere on the screen), `measures`, `pad`. An issue spanning several screens gets one crop per screen: `DT-005_mixed-icons_shop.png`, `DT-005_mixed-icons_pause.png`.
+Label size follows the image: the default suits 2–3x phone screenshots. For 1x desktop or web captures add `"scale": 1.2` to the spec, or the badges cover the text. `badge_xy` sets the badge **center**.
 Open every image before linking it; fix clipped labels or crops that miss the problem.
 
 ## Linking (relative paths, so they open from VS Code, GitHub or any markdown viewer)
