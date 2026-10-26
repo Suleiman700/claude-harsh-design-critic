@@ -70,8 +70,6 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 ### Test 1 · Block puzzle game + hotel tycoon game — 4/10
 
-> "The board looks like a game. Everything around it looks like a prototype."
-
 25 issues across 6 screens from two games.
 
 <p align="center"><img src="docs/images/shop-annotated.png" width="260" alt="Puzzle shop, annotated"></p>
@@ -79,8 +77,6 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 📄 **Full test:** [every finding with screenshots](tests/block-puzzle-hotel-tycoon/README.md) · [review](tests/block-puzzle-hotel-tycoon/design-review/reviews/2026-10-26-review.md)
 
 ### Test 2 · Synthwave survivor shooter — 5/10
-
-> "Strong synthwave mood, but the menu is four different button systems and the shop sells things I can't afford without telling me."
 
 12 issues across 2 screens.
 
@@ -90,8 +86,6 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 ### Test 3 · Swipe-to-spell word puzzle — 6/10
 
-> "Clean and calm, but locked, unearned and disabled all look the same faded teal."
-
 8 issues across 4 screens. What works: home margins equal to the pixel, one tight palette, primary action always in thumb reach.
 
 <p align="center"><img src="tests/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="260" alt="Word puzzle home, annotated"></p>
@@ -99,8 +93,6 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 📄 **Full test:** [every finding with screenshots](tests/word-wheel/README.md) · [review](tests/word-wheel/design-review/reviews/2026-10-26-review.md)
 
 ### Test 4 · E-commerce site, blind test — 3/10
-
-> "The checkout adds my mugs up wrong, charges shipping it promised was free, and the product page has no Add to cart on my phone."
 
 Three store pages (landing, product, checkout) were built with **42 hidden defects**, from easy to 1px-subtle. The answer key was kept where the skill couldn't read it.
 
