@@ -2,6 +2,9 @@
 
 ## 1.1.0 — 2026-10-26
 - **Output folder moved:** everything the skill writes now goes to `docs/harsh-design-critic/` (`design-review/`, `market-research/`) instead of `docs/game-prompts/`. Old reviews in `docs/game-prompts/` are read as history, and the skill asks once before moving them. `ui_lint.py` still finds `ui-tokens.json` in the old location.
+- `ui_lint.py` now scans HTML/CSS: emoji in page text, token sprawl, removed focus outlines with no replacement (`E-FOCUS`), pages with no `@media` rule (`W-MOBILE`), fixed widths wider than a phone.
+- Install uses a `.venv` inside the skill folder (fixes `externally-managed-environment` on Homebrew Python); the skill runs its scripts with `.venv/bin/python` when it exists.
+- The ZIP download (for the Claude app) leaves out `tests/` and `docs/images/`: about 50 KB instead of 38 MB.
 - New blind test: `tests/ecommerce-site/`, three store pages with 42 planted defects. Found 42/42, plus 16 issues that weren't planted.
 - All tests now live in `tests/<name>/` (each with a README holding every finding); `examples/` and `tests/screenshots/` were folded in. The main README keeps a short summary per test with a "Full test" link.
 
