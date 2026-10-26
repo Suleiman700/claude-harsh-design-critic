@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Jacket — Kestrel Outdoor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1c1c1e; background: #fff; line-height: 1.5; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  header { border-bottom: 1px solid #e8e8e8; }
+  .nav { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+
+  .crumbs { display: flex; align-items: center; font-size: 14px; color: #6b6b70; padding: 20px 0 28px; }
+  .crumbs .sep { margin: 0 10px 0 4px; color: #b4b4b8; }
+  .crumbs .current { color: #1c1c1e; }
+
+  .pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .gallery-main { aspect-ratio: 4 / 5; border-radius: 16px; background: linear-gradient(160deg, #d9ddd2 0%, #b9c2ad 100%); display: grid; place-items: center; margin-bottom: 16px; }
+  .gallery-main svg { width: 55%; }
+  .thumbs { display: flex; gap: 12px; }
+  .thumb { width: 72px; height: 72px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; }
+  .thumb.active { border-color: #1c1c1e; }
+  .thumb--alt { width: 70px; height: 70px; }
+
+  .info h1 { font-size: 34px; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 10px; }
+  .rating { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #6b6b70; margin-bottom: 20px; }
+  .stars { color: #e0a100; letter-spacing: 2px; font-size: 16px; }
+  .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 28px; }
+  .price-now { font-size: 26px; font-weight: 700; }
+  .price-was { font-size: 18px; color: #6b6b70; text-decoration: line-through; }
+  .badge { background: #fdecea; color: #b3261e; font-size: 13px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+
+  .opt-label { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; }
+  .opt-label span { font-weight: 400; color: #6b6b70; }
+  .swatches { display: flex; gap: 12px; margin-bottom: 28px; }
+  .swatch { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; outline: none; }
+  .swatch.selected { border-color: #c8c8c8; }
+
+  .sizes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 28px; }
+  .size { height: 44px; border: 1px solid #d4d4d8; border-radius: 6px; background: #fff; cursor: pointer; font-size: 14px; font-weight: 500; }
+  .size.selected { border-color: #1c1c1e; background: #1c1c1e; color: #fff; }
+  .size:disabled { opacity: 0.85; cursor: not-allowed; }
+
+  .buy-row { display: flex; gap: 12px; margin-bottom: 20px; }
+  .qty { display: flex; align-items: center; border: 1px solid #d4d4d8; border-radius: 6px; height: 52px; }
+  .qty button { width: 44px; height: 100%; border: 0; background: none; font-size: 18px; cursor: pointer; }
+  .qty output { width: 36px; text-align: center; font-weight: 600; }
+  .add { flex: 1; height: 52px; border: 0; border-radius: 10px; background: #1c1c1e; color: #fff; font-weight: 600; font-size: 16px; cursor: pointer; }
+  .wish { width: 52px; height: 52px; border: 1px solid #d4d4d8; border-radius: 6px; background: #fff; cursor: pointer; display: grid; place-items: center; }
+  .wish svg { width: 22px; height: 22px; fill: none; stroke: #1c1c1e; stroke-width: 1.8; }
+  .ship-note { font-size: 14px; color: #6b6b70; }
+
+  .tabs { margin-top: 72px; border-bottom: 1px solid #e8e8e8; display: flex; gap: 32px; }
+  .tab { background: none; border: 0; padding: 14px 0; font-size: 15px; font-weight: 600; color: #6b6b70; cursor: pointer; position: relative; }
+  .tab.active { color: #1c1c1e; }
+  .tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 2px; background: #1c1c1e; }
+  .panel { padding: 32px 0; max-width: 760px; display: none; }
+  .panel.active { display: block; }
+  .panel p { margin-bottom: 16px; color: #3a3a3c; }
+  .panel p + p { line-height: 1.65; }
+  .specs { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .specs td { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .specs td:first-child { color: #6b6b70; width: 40%; }
+  .specs tr:nth-child(odd) td:last-child { text-align: right; }
+  .review { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+  .review strong { display: block; margin-bottom: 4px; }
+
+  .related { margin: 56px 0 96px; }
+  .related h2 { font-size: 24px; margin-bottom: 24px; }
+  .rail { display: flex; gap: 24px; overflow: hidden; }
+  .card { flex: 0 0 270px; }
+  .card-img { aspect-ratio: 1; border-radius: 12px; margin-bottom: 12px; }
+  .card h3 { font-size: 15px; font-weight: 600; }
+  .card p { font-size: 15px; color: #6b6b70; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">Kestrel Outdoor</a>
+    <nav class="nav-links"><a href="#">Men</a><a href="#">Women</a><a href="#">Gear</a><a href="#">Sale</a></nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="crumbs">
+    <a href="#">Home</a><span class="sep">/</span>
+    <a href="#">Men</a><span class="sep">/</span>
+    <a href="#">Jackets</a><span class="sep">/</span>
+    <span class="current">Waxed Field Jacket</span>
+  </nav>
+
+  <div class="pdp">
+    <div>
+      <div class="gallery-main">
+        <svg viewBox="0 0 200 220"><path d="M70 20l30 18 30-18 45 30-15 45-15-6v120H55V89l-15 6-15-45z" fill="#4f5b3f"/><path d="M100 38v170" stroke="#3b4530" stroke-width="3"/><rect x="65" y="110" width="25" height="18" rx="3" fill="#3b4530"/><rect x="110" y="110" width="25" height="18" rx="3" fill="#3b4530"/></svg>
+      </div>
+      <div class="thumbs">
+        <div class="thumb active" style="background:#c9cfbe"></div>
+        <div class="thumb" style="background:#b9c2ad"></div>
+        <div class="thumb thumb--alt" style="background:#d6d9cf"></div>
+        <div class="thumb" style="background:#a9b39b"></div>
+      </div>
+    </div>
+
+    <div class="info">
+      <h1>Waxed Field Jacket</h1>
+      <div class="rating"><span class="stars">★★★★★</span> 4.2 · 128 reviews</div>
+      <div class="price-row">
+        <span class="price-now">$74.00</span>
+        <span class="price-was">$89.00</span>
+        <span class="badge">Save 20%</span>
+      </div>
+
+      <div class="opt-label">Colour <span id="colourName">Olive</span></div>
+      <div class="swatches">
+        <button class="swatch selected" style="background:#4f5b3f" data-name="Olive" aria-label="Olive"></button>
+        <button class="swatch" style="background:#2b2f36" data-name="Navy" aria-label="Navy"></button>
+        <button class="swatch" style="background:#7a5233" data-name="Tan" aria-label="Tan"></button>
+        <button class="swatch" style="background:#ffffff; border-color:#fff" data-name="Chalk" aria-label="Chalk"></button>
+      </div>
+
+      <div class="opt-label">Size <span><a href="#">Size guide</a></span></div>
+      <div class="sizes">
+        <button class="size">XS</button>
+        <button class="size" disabled>S</button>
+        <button class="size selected">M</button>
+        <button class="size">L</button>
+        <button class="size" disabled>XL</button>
+      </div>
+
+      <div class="buy-row">
+        <div class="qty">
+          <button id="minus" aria-label="Decrease">−</button>
+          <output id="qty">1</output>
+          <button id="plus" aria-label="Increase">+</button>
+        </div>
+        <button class="add">Add to cart</button>
+        <button class="wish" aria-label="Save"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
+      </div>
+      <p class="ship-note">Free delivery and returns. Ships in 1–2 business days.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-panel="desc">Description</button>
+    <button class="tab" data-panel="specs">Specifications</button>
+    <button class="tab" data-panel="reviews">Reviews (126)</button>
+  </div>
+  <div class="panel active" id="desc">
+    <p>Cut from 8oz waxed cotton canvas that softens and develops character with every wear. The Field Jacket keeps out wind and light rain, and can be re-waxed at home to last for years.</p>
+    <p>Four bellowed front pockets, a corduroy-lined collar and brass snaps finish a piece designed for the trail and the town alike. Relaxed fit — size down for a closer cut.</p>
+  </div>
+  <div class="panel" id="specs">
+    <table class="specs">
+      <tr><td>Shell</td><td>100% cotton, paraffin waxed</td></tr>
+      <tr><td>Lining</td><td>Cotton flannel</td></tr>
+      <tr><td>Weight</td><td>1.2kg</td></tr>
+      <tr><td>Packed weight</td><td>800 g</td></tr>
+      <tr><td>Origin</td><td>Made in Portugal</td></tr>
+    </table>
+  </div>
+  <div class="panel" id="reviews">
+    <div class="review"><strong>Built like a tank</strong>Third winter with mine and it only looks better. Size down if between sizes.</div>
+    <div class="review"><strong>Great but stiff at first</strong>Takes a couple of weeks to break in. Worth it.</div>
+  </div>
+
+  <section class="related">
+    <h2>You may also like</h2>
+    <div class="rail">
+      <div class="card"><div class="card-img" style="background:#d4d8cc"></div><h3>Canvas Work Shirt</h3><p>$58.00</p></div>
+      <div class="card"><div class="card-img" style="background:#c8ccd4"></div><h3>Merino Watch Cap</h3><p>$32.00</p></div>
+      <div class="card"><div class="card-img" style="background:#d9cfc4"></div><h3>Leather Field Belt</h3><p>$46.00</p></div>
+      <div class="card"><div class="card-img" style="background:#cfd6c8"></div><h3>Rip-stop Cargo Pant</h3><p>$68.00</p></div>
+      <div class="card"><div class="card-img" style="background:#d2cdd6"></div><h3>Wax Restoring Kit</h3><p>$14.00</p></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const qty = document.getElementById('qty');
+  document.getElementById('plus').onclick = () => { qty.value = Number(qty.value) + 1; };
+  document.getElementById('minus').onclick = () => { qty.value = Number(qty.value) - 1; };
+
+  document.querySelectorAll('.swatch').forEach(s => s.onclick = () => {
+    document.querySelectorAll('.swatch').forEach(x => x.classList.remove('selected'));
+    s.classList.add('selected');
+    document.getElementById('colourName').textContent = s.dataset.name;
+  });
+
+  document.querySelectorAll('.size:not(:disabled)').forEach(s => s.onclick = () => {
+    document.querySelectorAll('.size').forEach(x => x.classList.remove('selected'));
+    s.classList.add('selected');
+  });
+
+  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+    document.querySelectorAll('.tab, .panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.panel).classList.add('active');
+  });
+</script>
+</body>
+</html>

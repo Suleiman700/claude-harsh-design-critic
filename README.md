@@ -10,7 +10,7 @@ Most AI reviews say "looks clean, maybe tweak the colors". This skill acts like 
 
 ## What it can do
 
-Every example below is a real finding from one of the [three test reviews](#real-world-tests).
+Every example below is a real finding from one of the [test reviews](#real-world-tests).
 
 | Capability | Example | What it found |
 |---|---|---|
@@ -40,19 +40,22 @@ Blur, grayscale and three colorblind simulations in one sheet. They show problem
 
 ## Real-world tests
 
-The skill has been run on screens from four real mobile games in three tests. Each test has a full review, annotated screens and one cropped image per issue.
+The skill has been run on four real mobile games and one website with planted defects, in four tests. Each test has a full review, annotated screens and one cropped image per issue.
 
-| # | Games tested | Screens | Score | 🔴 | 🟠 | 🟡 | Full review |
+| # | Tested | Screens | Score | 🔴 | 🟠 | 🟡 | Full review |
 |---|---|---|---|---|---|---|---|
 | 1 | A block puzzle game + a hotel tycoon game | 6 | **4/10** | 3 | 11 | 4 | [review](examples/sample-review/design-review/reviews/2026-10-26-review.md) · [tasks](examples/sample-review/design-review/DESIGN_TASKS.md) |
 | 2 | A synthwave survivor shooter | 2 | **5/10** | 0 | 6 | 6 | [review](examples/nova-survivor/design-review/reviews/2026-10-26-review.md) |
 | 3 | A swipe-to-spell word puzzle | 4 | **6/10** | 0 | 3 | 5 | [review](examples/word-wheel/design-review/reviews/2026-10-26-review.md) |
+| 4 | An e-commerce site, blind test with 42 planted defects | 3 pages | **3/10** | 4 | 18 | 26 | [full test](tests/ecommerce-site/README.md) · [review](tests/ecommerce-site/design-review/reviews/2026-10-26-review.md) |
 
 Every box on the annotated screens is labeled with its task id, the same id as in the table under it; cyan lines are measurements in pixels.
 
 ### Test 1 · Block puzzle game + hotel tycoon game — 4/10
 
 > "The board looks like a game. Everything around it looks like a prototype."
+
+📄 **Full test:** [review](examples/sample-review/design-review/reviews/2026-10-26-review.md) · [screenshots](examples/sample-review/design-review/screenshots/)
 
 25 issues across 6 screens from two games. Click an ID to see its close-up.
 
@@ -128,6 +131,8 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 > "Strong synthwave mood, but the menu is four different button systems and the shop sells things I can't afford without telling me."
 
+📄 **Full test:** [review](examples/nova-survivor/design-review/reviews/2026-10-26-review.md) · [screenshots](examples/nova-survivor/design-review/screenshots/)
+
 12 issues across 2 screens.
 
 **Main menu**
@@ -158,6 +163,8 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 ### Test 3 · Swipe-to-spell word puzzle — 6/10
 
 > "Clean and calm, but locked, unearned and disabled all look the same faded teal."
+
+📄 **Full test:** [review](examples/word-wheel/design-review/reviews/2026-10-26-review.md) · [screenshots](examples/word-wheel/design-review/screenshots/)
 
 8 issues across 4 screens. What works: home margins equal to the pixel, one tight palette, primary action always in thumb reach.
 
@@ -197,6 +204,33 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡&nbsp;Minor | Title 35px left of the screen center, as on every screen |
 
 The clean screenshots used in tests 2 and 3 are in [`tests/screenshots/`](tests/screenshots/), with the phone status bar and gesture bar removed.
+
+### Test 4 · E-commerce site, blind test — 3/10
+
+> "The checkout adds my mugs up wrong, charges shipping it promised was free, and the product page has no Add to cart on my phone."
+
+📄 **Full test:** [results, scorecard and every finding](tests/ecommerce-site/README.md) · [review](tests/ecommerce-site/design-review/reviews/2026-10-26-review.md) · [answer key](tests/ecommerce-site/ANSWER_KEY.md) · [test pages](tests/ecommerce-site/site/)
+
+Three store pages (landing, product, checkout) were built with **42 hidden defects**, from easy to 1px-subtle. The answer key was kept where the skill couldn't read it.
+
+**Found 42 / 42 planted defects**, plus **16 real problems nobody planted**, with no false positives.
+
+| Page | Planted | Found | Extra |
+|---|---|---|---|
+| Landing (easy) | 10 | **10** | 4 |
+| Product (medium) | 15 | **15** | 5 |
+| Checkout (hard) | 17 | **17** | 4 (+3 across pages) |
+
+<p align="center"><img src="tests/ecommerce-site/design-review/screenshots/screens/review-01_checkout_annotated.png" width="420" alt="Checkout, annotated"></p>
+
+| ID | Level | Hardest catches |
+|---|---|---|
+| [DT&#8209;034](tests/ecommerce-site/design-review/screenshots/issues/DT-034_order-math.png) | 🔴&nbsp;Critical | Line items add up to **$88.89**, but the subtotal says **$88.99** |
+| [DT&#8209;045](tests/ecommerce-site/design-review/screenshots/issues/DT-045_stepper-line-low.png) | 🟡&nbsp;Minor | Stepper lines sit **2px** below the circle centres |
+| [DT&#8209;038](tests/ecommerce-site/design-review/screenshots/issues/DT-038_cvc-expiry-tab-order.png) | 🟠&nbsp;Major | Keyboard Tab goes CVC → Expiry, the screen shows Expiry → CVC |
+| [DT&#8209;042](tests/ecommerce-site/design-review/screenshots/issues/DT-042_place-order-hover.png) | 🟠&nbsp;Major | "Place order" **hover** drops to **2.54:1** contrast |
+| [DT&#8209;016](tests/ecommerce-site/design-review/screenshots/issues/DT-016_discount-math.png) | 🟠&nbsp;Major | "Save 20%" badge, but $89 → $74 is **16.9%** |
+| [DT&#8209;035](tests/ecommerce-site/design-review/screenshots/issues/DT-035_shipping-charged.png) | 🔴&nbsp;Critical | Not planted: checkout charges shipping the landing page promised was free |
 
 ## How a review looks
 
@@ -246,15 +280,17 @@ Attach a screenshot (or run it inside your project) and say:
 - "critique / roast this UI"
 - or `/harsh-design-critic <request>` in Claude Code
 
-The first review in a project asks one short set of questions (audience, languages, monetization, competitor research, screenshots) and remembers the answers. Everything it writes goes to `docs/game-prompts/design-review/` in your project:
+The first review in a project asks one short set of questions (audience, languages, monetization, competitor research, screenshots) and remembers the answers. Everything it writes goes to `docs/harsh-design-critic/` in your project:
 
 ```
-docs/game-prompts/design-review/
-  REVIEW_LOG.md · DESIGN_TASKS.md · ui-tokens.json
-  reviews/2026-10-26-review.md
-  screenshots/screens/  review-01_shop_annotated.png …
-  screenshots/issues/   DT-001_shop-price-overlay.png …
-  screenshots/proof/    DT-001_before.png · DT-001_after.png · DT-001_proof.png
+docs/harsh-design-critic/
+  market-research/    INDEX.md · competitors/ · gap-table.md (only when research is allowed)
+  design-review/
+    REVIEW_LOG.md · DESIGN_TASKS.md · ui-tokens.json
+    reviews/2026-10-26-review.md
+    screenshots/screens/  review-01_shop_annotated.png …
+    screenshots/issues/   DT-001_shop-price-overlay.png …
+    screenshots/proof/    DT-001_before.png · DT-001_after.png · DT-001_proof.png
 ```
 
 Later commands: `fix DT-007` · `next task` · `what's left` · `verify` · `research competitors` · `lint` · `store mode`.

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kestrel Home — Everyday goods, made to last</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1d1d1f; background: #fff; line-height: 1.5; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  header { border-bottom: 1px solid #ececec; }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; color: #1f5f4a; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 16px; font-weight: 500; }
+  .nav-links a.contact { font-size: 14px; }
+  .nav-actions { display: flex; gap: 20px; align-items: center; }
+  .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px; border: 1px solid #ececec; background: #fff; cursor: pointer; }
+  .icon-btn svg { width: 20px; height: 20px; stroke: #1d1d1f; fill: none; stroke-width: 1.8; }
+
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; padding: 96px 0 80px; }
+  .hero h1 { font-size: 56px; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 20px; }
+  .hero p { font-size: 19px; color: #a8a8a8; max-width: 480px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; border-radius: 8px; font-size: 16px; font-weight: 600; border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: #1f5f4a; color: #fff; }
+  .btn-secondary { height: 40px; border-color: #1f5f4a; color: #1f5f4a; background: #fff; }
+  .hero-art { aspect-ratio: 1 / 1; border-radius: 24px; background: linear-gradient(135deg, #e8f0ec 0%, #cfe1d7 100%); display: grid; place-items: center; }
+  .hero-art svg { width: 60%; }
+
+  .section { padding: 72px 0; }
+  .section-title { font-size: 32px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .section-sub { color: #5f6368; margin-bottom: 40px; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feature { border: 1px solid #ececec; border-radius: 16px; padding: 32px; }
+  .feature--compact { padding: 20px; }
+  .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: #e8f0ec; display: grid; place-items: center; margin-bottom: 20px; font-size: 24px; }
+  .feature-icon svg { width: 24px; height: 24px; stroke: #1f5f4a; fill: none; stroke-width: 1.8; }
+  .feature h3 { font-size: 18px; margin-bottom: 8px; }
+  .feature p { color: #5f6368; font-size: 15px; }
+
+  .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 24px; }
+  .product { border: 1px solid #ececec; border-radius: 16px; padding: 16px; }
+  .product-img { aspect-ratio: 4 / 3; border-radius: 10px; margin-bottom: 16px; }
+  .product h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .product .price { color: #1f5f4a; font-weight: 700; margin-bottom: 16px; }
+  .product .btn { width: 100%; height: 40px; font-size: 14px; }
+
+  .newsletter { background: #f4f7f5; border-radius: 24px; padding: 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+  .newsletter h2 { font-size: 28px; margin-bottom: 6px; }
+  .newsletter p { color: #5f6368; }
+  .newsletter form { display: flex; gap: 12px; align-items: center; }
+  .newsletter input { height: 44px; width: 300px; padding: 0 16px; border: 1px solid #d0d5d2; border-radius: 8px; font-size: 15px; }
+  .newsletter .btn { height: 38px; }
+
+  footer { border-top: 1px solid #ececec; padding: 56px 0 32px; margin-top: 72px; }
+  .footer-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 48px; }
+  .footer-cols h5 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
+  .footer-cols ul { list-style: none; display: grid; gap: 10px; color: #5f6368; font-size: 15px; }
+  .footer-col--help { padding-left: 12px; }
+  .copyright { color: #5f6368; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">Kestrel Home</a>
+    <ul class="nav-links">
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#" class="contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M5 7h14l-1.5 11h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container hero">
+    <div>
+      <h1>Everyday goods, made to last.</h1>
+      <p>Simple, durable homeware crafted by independent makers. Designed to be used daily and kept for decades.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Shop the collection</a>
+        <a href="#" class="btn btn-secondary">Our story</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 200 200"><ellipse cx="100" cy="160" rx="70" ry="10" fill="#b7cfc1"/><path d="M50 70h100l-12 85a10 10 0 0 1-10 9H72a10 10 0 0 1-10-9z" fill="#1f5f4a"/><rect x="44" y="60" width="112" height="14" rx="7" fill="#2d7a60"/></svg>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Why Kestrel</h2>
+      <p class="section-sub">Three promises we keep on every order.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/></svg></div>
+          <h3>Lifetime guarantee</h3>
+          <p>If anything we sell breaks through normal use, we repair or replace it. No receipts needed.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🚚</div>
+          <h3>Free delivery over $60</h3>
+          <p>Carbon-neutral shipping on every order, delivered in recyclable packaging within 3–5 days.</p>
+        </div>
+        <div class="feature feature--compact">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></div>
+          <h3>60-day returns</h3>
+          <p>Changed your mind? Send it back within 60 days for a full refund, return label included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Bestsellers</h2>
+      <p class="section-sub">The pieces our customers reorder most.</p>
+      <div class="products">
+        <div class="product"><div class="product-img" style="background:#e9e2d8"></div><h4>Linen Tea Towel</h4><div class="price">$18.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#d9e4ea"></div><h4>Hand-thrown Stoneware Serving Bowl, Large</h4><div class="price">$64.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#e6e0ea"></div><h4>Oak Cutting Board</h4><div class="price">$42.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#f0e6d6"></div><h4>Beeswax Candle Set</h4><div class="price">$24.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#dfe8df"></div><h4>Enamel Mug</h4><div class="price">$16.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#ebe3dc"></div><h4>Wool Throw Blanket</h4><div class="price">$120.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#e1e5ec"></div><h4>Glass Storage Jar</h4><div class="price">$14.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+        <div class="product"><div class="product-img" style="background:#ece6dd"></div><h4>Cotton Napkins, Set of 4</h4><div class="price">$28.00</div><a href="#" class="btn btn-primary">Add to cart</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="newsletter">
+      <div>
+        <h2>Join the Kestrel letter</h2>
+        <p>Recieve 10% off your first order, plus new arrivals once a month.</p>
+      </div>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Email address">
+        <button class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <div class="logo">Kestrel Home</div>
+        <p class="copyright" style="margin-top:12px; max-width:280px">Everyday goods from independent makers, since 2014.</p>
+      </div>
+      <div><h5>Shop</h5><ul><li>Kitchen</li><li>Living</li><li>Bedroom</li><li>Gift cards</li></ul></div>
+      <div class="footer-col--help"><h5>Help</h5><ul><li>Shipping</li><li>Returns</li><li>Warranty</li><li>FAQ</li></ul></div>
+      <div><h5>Company</h5><ul><li>About</li><li>Makers</li><li>Careers</li><li>Press</li></ul></div>
+    </div>
+    <p class="copyright">© 2026 Kestrel Home. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -37,7 +37,7 @@ Re-measure against the task's "Done when" line, then set VERIFIED (link the proo
 
 ## UI lint (code available)
 ```
-python scripts/ui_lint.py <project_root> --out docs/game-prompts/design-review/lint-report.md
+python scripts/ui_lint.py <project_root> --out docs/harsh-design-critic/design-review/lint-report.md
 ```
 Catches: E-EMOJI (emoji in UI text), E-SIBLING (mismatched heights in a row container), W-TOKENS (values not in ui-tokens.json), W-SPRAWL (too many font sizes/radii/colors), I-OVERFLOW (Godot labels without wrap/overrun/clip), I-WORLD (Label3D to verify). Exit code 1 on errors.
 - Turn each E-/W- finding into a task (or merge into an existing one).

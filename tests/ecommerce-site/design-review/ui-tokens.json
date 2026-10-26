@@ -1,0 +1,34 @@
+{
+  "_note": "PROPOSED from the dominant values measured in easy.html / medium.html / hard.html (Review #1, 2026-10-26). Not confirmed by the user yet. Outliers listed under _outliers become DT tasks.",
+  "spacing": [4, 8, 12, 16, 24, 32, 40, 56, 72],
+  "screenMargin": { "desktop": 32, "phone": 16 },
+  "container": 1200,
+  "heights": {
+    "header": 64,
+    "control": 44,
+    "primaryButton": 52,
+    "secondaryButton": 44,
+    "iconButton": 44
+  },
+  "radii": [8, 12, 16, 999],
+  "fontSizes": [12, 13, 14, 15, 16, 18, 24, 32, 56],
+  "colors": ["#1F5F4A", "#1D1D1F", "#5F6368", "#8A8F98", "#E6E8EB", "#FAFAFA", "#FFFFFF", "#B91C1C"],
+  "roles": {
+    "primaryAction": "#1F5F4A",
+    "text": "#1D1D1F",
+    "textSecondary": "#5F6368",
+    "inputBorder": "#8A8F98",
+    "cardBorder": "#E6E8EB",
+    "surface": "#FAFAFA",
+    "error": "#B91C1C",
+    "sale": "#B3261E"
+  },
+  "_outliers": {
+    "buttonHeights": "38 (Subscribe), 40 (Our story, product cards), 48 (hero) -> 44/52",
+    "radii": "6 (PDP qty/size/wish), 10 (Add to cart, Place order) -> 8",
+    "primaryColors": "#1C1C1E (PDP), #2563EB (checkout) -> #1F5F4A",
+    "headers": "72px (landing) -> 64",
+    "container": "1120 (checkout) -> 1200",
+    "textGreys": "#A8A8A8, #616161, #6B6B70 -> #5F6368"
+  }
+}

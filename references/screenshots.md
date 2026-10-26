@@ -2,7 +2,7 @@
 
 ## Ask once per project
 Add this to the one-time profile question (stored in REVIEW_LOG.md as `Screenshots: <choice>`):
-"Should I review with screenshots? I'll save them under `docs/game-prompts/design-review/screenshots/`, one image per issue, named after its task id (e.g. `DT-007_settings-button-height.png`) and linked from the task file and the review."
+"Should I review with screenshots? I'll save them under `docs/harsh-design-critic/design-review/screenshots/`, one image per issue, named after its task id (e.g. `DT-007_settings-button-height.png`) and linked from the task file and the review."
 - **Per-issue (recommended):** full annotated screens + one cropped image per issue + before/after proof.
 - **Full screens only:** annotated full screens, no per-issue crops.
 - **No images:** text and measurements only (still measured with scripts if screenshot files exist).
@@ -10,7 +10,7 @@ If the user only gave code and a live build can run safely, the same question co
 
 ## Folder and names
 ```
-docs/game-prompts/design-review/screenshots/
+docs/harsh-design-critic/design-review/screenshots/
   screens/   review-03_shop.png                    capture (copy of the user's file, or taken from the build)
              review-03_shop_cant-afford.png        state suffix
              review-03_shop_tall-notch.png         device suffix (small · tall-notch · tablet · landscape)
@@ -37,7 +37,7 @@ Every box on every image (full screens and crops) is labeled with the **task id*
 # full screen, numbered by Q
 python scripts/annotate.py screens/review-03_shop.png spec.json screens/review-03_shop_annotated.png
 # one crop per task (prints the markdown links to paste)
-python scripts/issue_shots.py issues-spec.json docs/game-prompts/design-review/screenshots/issues
+python scripts/issue_shots.py issues-spec.json docs/harsh-design-critic/design-review/screenshots/issues
 ```
 `issue_shots.py` spec: `source`, then per issue `id`, `slug`, `title`, `severity`, `box`, optional `extra_boxes` (same issue elsewhere on the screen), `measures`, `pad`. An issue spanning several screens gets one crop per screen: `DT-005_mixed-icons_shop.png`, `DT-005_mixed-icons_pause.png`.
 Open every image before linking it; fix clipped labels or crops that miss the problem.

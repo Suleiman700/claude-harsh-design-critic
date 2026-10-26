@@ -1,6 +1,6 @@
 # Review output format
 
-Save the full review to `docs/game-prompts/design-review/reviews/<YYYY-MM-DD>-review.md` and print it in chat. Never overwrite an existing report: add `-2`, `-3`.
+Save the full review to `docs/harsh-design-critic/design-review/reviews/<YYYY-MM-DD>-review.md` and print it in chat. Never overwrite an existing report: add `-2`, `-3`.
 
 ```
 # Design Review: <project> — <screen/feature/flow> — Review #N
@@ -76,7 +76,7 @@ comparison board if research exists, palette: extracted hex + proposed palette>
 ## End of the review: STOP and wait
 After writing the report and updating DESIGN_TASKS.md and REVIEW_LOG.md, end with:
 
-> **Report saved to `docs/game-prompts/design-review/reviews/<file>`. My picks are pre-selected. Nothing else has been changed.**
+> **Report saved to `docs/harsh-design-critic/design-review/reviews/<file>`. My picks are pre-selected. Nothing else has been changed.**
 > Reply with one of:
 > - `approve all` — apply my pick for every Q, in severity order
 > - `approve Q1, Q3` — apply my picks for those Qs only

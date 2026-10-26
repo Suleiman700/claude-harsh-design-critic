@@ -6,7 +6,7 @@ Usage:
 
 spec.json:
 {
-  "source": "docs/game-prompts/design-review/screenshots/screens/review-01_shop.png",
+  "source": "docs/harsh-design-critic/design-review/screenshots/screens/review-01_shop.png",
   "issues": [
     {"id": "DT-001", "slug": "shop-price-overlay", "title": "Price centered in stray overlay",
      "severity": "CRITICAL", "box": [700, 372, 828, 522],

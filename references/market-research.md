@@ -1,5 +1,7 @@
 # Market research (similar projects on the internet)
 
+All paths in this file are relative to `docs/harsh-design-critic/` in the project root.
+
 ## Permission
 - Stored in the project profile (REVIEW_LOG.md): `Market research: allowed (date)` or `declined (date)`.
 - Never asked yet → ask once, together with any other missing profile fields: "Can I search the internet for similar games/apps and save their screenshots, descriptions, store info and reviews for comparison?"

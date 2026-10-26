@@ -1,5 +1,7 @@
 # Task board and review log
 
+All paths in this file are relative to `docs/harsh-design-critic/` in the project root.
+
 ## DESIGN_TASKS.md (one living board, never one file per review)
 Every Q block becomes a task (or updates an existing one). The task stores all options and the pick, so the choice survives between sessions.
 

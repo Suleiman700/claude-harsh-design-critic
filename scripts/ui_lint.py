@@ -10,8 +10,8 @@ Catches the defect classes the harsh-design-critic keeps finding, before a build
   I-WORLD     Godot Label3D / floating labels: verify on-screen clamping and overlap
 
 Usage:
-  python ui_lint.py <project_root> [--tokens docs/game-prompts/design-review/ui-tokens.json]
-                    [--out docs/game-prompts/design-review/lint-report.md] [--strict]
+  python ui_lint.py <project_root> [--tokens docs/harsh-design-critic/design-review/ui-tokens.json]
+                    [--out docs/harsh-design-critic/design-review/lint-report.md] [--strict]
 
 Exit code 1 if any E-* finding (or any finding with --strict), so it can gate builds.
 """
@@ -199,7 +199,9 @@ def main():
     ap.add_argument("--strict", action="store_true")
     a = ap.parse_args()
 
-    tok_path = a.tokens or os.path.join(a.root, "docs/game-prompts/design-review/ui-tokens.json")
+    tok_path = a.tokens or os.path.join(a.root, "docs/harsh-design-critic/design-review/ui-tokens.json")
+    if not a.tokens and not os.path.exists(tok_path):
+        tok_path = os.path.join(a.root, "docs/game-prompts/design-review/ui-tokens.json")  # pre-1.1 location
     tokens = json.load(open(tok_path)) if os.path.exists(tok_path) else {}
     stats = {"font_sizes": defaultdict(list), "radii": defaultdict(list), "colors": defaultdict(list)}
 

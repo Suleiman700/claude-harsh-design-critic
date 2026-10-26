@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Kestrel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1a1d21; background: #fafafa; line-height: 1.5; font-size: 15px; }
+  a { color: #2563eb; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+  header { background: #fff; border-bottom: 1px solid #e6e8eb; }
+  .bar { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-weight: 700; font-size: 20px; color: #1a1d21; letter-spacing: -0.02em; }
+  .secure { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #5f6368; }
+  .secure svg { width: 14px; height: 14px; fill: none; stroke: #5f6368; stroke-width: 2; }
+
+  .steps { display: flex; align-items: flex-start; justify-content: center; padding: 36px 0 40px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 120px; font-size: 13px; color: #5f6368; }
+  .dot { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 600; border: 2px solid #d1d5db; background: #fff; }
+  .step.done .dot { background: #2563eb; border-color: #2563eb; color: #fff; }
+  .step.current .dot { border-color: #2563eb; color: #2563eb; }
+  .step.current { color: #1a1d21; font-weight: 600; }
+  .line { width: 96px; height: 2px; background: #d1d5db; margin-top: 17px; }
+  .line.done { background: #2563eb; }
+
+  .layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; padding-bottom: 64px; }
+  .card { background: #fff; border: 1px solid #e6e8eb; border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+  .card h2 { font-size: 18px; margin-bottom: 20px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 16px; }
+  .full { grid-column: 1 / -1; }
+  .field label { display: block; font-size: 13px; font-weight: 500; color: #5f6368; margin-bottom: 6px; }
+  .field--city label { margin-bottom: 8px; }
+  .field--phone label { color: #616161; }
+  .field input, .field select { width: 100%; height: 44px; padding: 0 12px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; background: #fff; color: #1a1d21; }
+  .field--zip input { height: 43px; }
+  .field input:focus, .field select:focus { outline: 2px solid #2563eb; outline-offset: -1px; border-color: #2563eb; }
+  .req { color: #dc2626; }
+  .hint { font-size: 12px; color: #8a8f98; margin-top: 6px; }
+  .error { font-size: 12px; color: #e57373; margin-top: 6px; display: none; }
+  .field.invalid .error { display: block; }
+
+  .ship-opts { display: grid; gap: 12px; }
+  .ship-opt { display: flex; align-items: center; gap: 14px; padding: 16px; border: 1px solid #d1d5db; border-radius: 10px; cursor: pointer; background: #fff; }
+  .ship-opt.selected { border: 2px solid #2563eb; background: #f5f8ff; }
+  .ship-opt input { accent-color: #2563eb; width: 18px; height: 18px; }
+  .ship-opt .name { font-weight: 600; }
+  .ship-opt .eta { font-size: 13px; color: #5f6368; }
+  .ship-opt .cost { margin-left: auto; font-weight: 600; }
+
+  .pay-row { display: flex; gap: 16px; }
+  .pay-row .field { flex: 1; }
+  .pay-row .field--exp { order: 1; }
+  .pay-row .field--cvc { order: 2; }
+  .card-num { min-width: 340px; }
+
+  .summary { position: sticky; top: 24px; }
+  .item { display: flex; gap: 14px; align-items: center; padding: 12px 0; }
+  .thumb { width: 56px; height: 56px; border-radius: 8px; flex: 0 0 auto; position: relative; }
+  .qty-badge { position: absolute; top: -6px; right: -6px; background: #5f6368; color: #fff; font-size: 11px; font-weight: 600; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; }
+  .item .meta { flex: 1; }
+  .item .title { font-weight: 500; }
+  .item .variant { font-size: 13px; color: #5f6368; }
+  .item .amt { font-weight: 600; }
+  .item:nth-child(2) .amt { padding-right: 2px; }
+  .promo { display: flex; gap: 8px; padding: 16px 0; border-top: 1px solid #eef0f2; border-bottom: 1px solid #eef0f2; margin: 8px 0 16px; }
+  .promo input { flex: 1; height: 40px; padding: 0 12px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; }
+  .promo button { height: 40px; padding: 0 16px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; cursor: pointer; }
+  .totals { display: grid; gap: 10px; }
+  .totals div { display: flex; justify-content: space-between; }
+  .totals .muted { color: #5f6368; }
+  .totals .grand { font-size: 18px; font-weight: 700; padding-top: 12px; border-top: 1px solid #eef0f2; margin-top: 4px; }
+  .place { width: 100%; height: 52px; margin-top: 20px; border: 0; border-radius: 10px; background: #2563eb; color: #fff; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .place:hover { background: #60a5fa; }
+  .trust { display: flex; justify-content: center; gap: 20px; margin-top: 16px; }
+  .trust svg { height: 24px; width: auto; }
+  .legal { font-size: 11px; color: #8a8f98; text-align: center; margin-top: 16px; }
+
+  @media (max-width: 760px) {
+    .container { padding: 0 16px; }
+    .layout { display: flex; flex-direction: column; }
+    .summary { position: static; order: 2; }
+    .steps .line { width: 32px; }
+    .step { width: 72px; }
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container bar">
+    <a href="#" class="logo">Kestrel</a>
+    <div class="secure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="steps">
+    <div class="step done"><div class="dot">✓</div>Cart</div>
+    <div class="line done"></div>
+    <div class="step current"><div class="dot">2</div>Details</div>
+    <div class="line"></div>
+    <div class="step"><div class="dot">3</div>Payment</div>
+    <div class="line"></div>
+    <div class="step"><div class="dot">4</div>Review</div>
+  </div>
+
+  <div class="layout">
+    <div class="form-col">
+      <form id="checkout" novalidate onsubmit="return false">
+        <section class="card">
+          <h2>Contact</h2>
+          <div class="grid">
+            <div class="field full" id="emailField">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" type="email" autocomplete="email">
+              <div class="error">Enter a valid email address</div>
+              <div class="hint">We'll send your receipt and tracking here.</div>
+            </div>
+            <div class="field full field--phone">
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel" required autocomplete="tel">
+              <div class="hint">For delivery updates only.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Shipping address</h2>
+          <div class="grid">
+            <div class="field"><label for="first">First name <span class="req">*</span></label><input id="first" autocomplete="given-name"></div>
+            <div class="field"><label for="last">Last name <span class="req">*</span></label><input id="last" autocomplete="family-name"></div>
+            <div class="field full"><label for="addr">Address <span class="req">*</span></label><input id="addr" autocomplete="address-line1"></div>
+            <div class="field field--city"><label for="city">City <span class="req">*</span></label><input id="city" autocomplete="address-level2"></div>
+            <div class="field field--zip"><label for="zip">ZIP code <span class="req">*</span></label><input id="zip" autocomplete="postal-code"></div>
+            <div class="field full">
+              <label for="country">Country <span class="req">*</span></label>
+              <select id="country"><option>United States</option><option>Canada</option><option>United Kingdom</option></select>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Shipping method</h2>
+          <div class="ship-opts">
+            <label class="ship-opt selected"><input type="radio" name="ship" value="5.99" checked><div><div class="name">Standard</div><div class="eta">3–5 business days</div></div><div class="cost">$5.99</div></label>
+            <label class="ship-opt"><input type="radio" name="ship" value="12.99"><div><div class="name">Express</div><div class="eta">1–2 business days</div></div><div class="cost">$12.99</div></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Payment</h2>
+          <div class="grid">
+            <div class="field full"><label for="cardnum">Card number <span class="req">*</span></label><input id="cardnum" class="card-num" inputmode="numeric" placeholder="1234 1234 1234 1234" autocomplete="cc-number"></div>
+            <div class="full pay-row">
+              <div class="field field--cvc"><label for="cvc">CVC <span class="req">*</span></label><input id="cvc" inputmode="numeric" maxlength="4" autocomplete="cc-csc"></div>
+              <div class="field field--exp"><label for="exp">Expiry <span class="req">*</span></label><input id="exp" placeholder="MM/YY" maxlength="4" autocomplete="cc-exp"></div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+
+    <aside class="summary">
+      <section class="card">
+        <h2>Order summary</h2>
+        <div class="items">
+          <div class="item"><div class="thumb" style="background:#dfe6ee"><span class="qty-badge">2</span></div><div class="meta"><div class="title">Enamel Mug</div><div class="variant">Slate · 350 ml</div></div><div class="amt">$68.90</div></div>
+          <div class="item"><div class="thumb" style="background:#ece3d6"></div><div class="meta"><div class="title">Linen Tea Towel</div><div class="variant">Natural</div></div><div class="amt">$19.99</div></div>
+        </div>
+        <div class="promo"><input placeholder="Discount code" aria-label="Discount code"><button type="button">Apply</button></div>
+        <div class="totals">
+          <div><span class="muted">Subtotal</span><span>$88.99</span></div>
+          <div><span class="muted">Shipping</span><span id="shipAmt">$5.99</span></div>
+          <div><span class="muted">Tax (8%)</span><span>$7.12</span></div>
+          <div class="grand"><span>Total</span><span id="grand">$102.10</span></div>
+        </div>
+        <button class="place" form="checkout" type="submit">Place order</button>
+        <div class="trust">
+          <svg viewBox="0 0 38 24"><rect width="38" height="24" rx="4" fill="#1a1f71"/><text x="19" y="16" font-size="10" font-weight="700" fill="#fff" text-anchor="middle" font-family="Arial">VISA</text></svg>
+          <svg viewBox="0 0 38 24"><rect width="38" height="24" rx="4" fill="#f3f4f6"/><circle cx="15" cy="12" r="7" fill="#eb001b"/><circle cx="23" cy="12" r="7" fill="#f79e1b" fill-opacity=".9"/></svg>
+          <svg viewBox="1 1 36 22"><rect x="1" y="1" width="36" height="22" rx="4" fill="#2e77bc"/><text x="19" y="15.5" font-size="8" font-weight="700" fill="#fff" text-anchor="middle" font-family="Arial">AMEX</text></svg>
+        </div>
+        <p class="legal">By placing your order you agree to our Terms of Sale and Privacy Policy. Orders are processed in USD.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const email = document.getElementById('email');
+  email.addEventListener('blur', () => {
+    document.getElementById('emailField').classList.toggle('invalid', email.value !== '' && !/^\S+@\S+\.\S+$/.test(email.value));
+  });
+
+  document.querySelectorAll('.ship-opt input').forEach(r => r.addEventListener('change', () => {
+    document.querySelectorAll('.ship-opt').forEach(o => o.classList.toggle('selected', o.contains(r)));
+    const ship = Number(r.value);
+    document.getElementById('shipAmt').textContent = '$' + ship.toFixed(2);
+    document.getElementById('grand').textContent = '$' + (88.99 + 7.12 + ship).toFixed(2);
+  }));
+</script>
+</body>
+</html>
