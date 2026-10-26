@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/images/banner.png" alt="Harsh Design Critic: reviews your game, app or website like a publisher; every flaw measured in pixels, marked and ranked" width="100%"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/f88b9380-9b08-47dd-bafa-18f29d460fcd" alt="Harsh Design Critic: reviews your game, app or website like a publisher; every flaw measured in pixels, marked and ranked" width="100%"></p>
 
 # Harsh Design Critic — a Claude skill
 
