@@ -15,9 +15,9 @@ Real findings from the sample review in [`examples/`](examples/sample-review/des
 
 | Finding | Measured |
 |---|---|
-| ![DT-001](docs/images/DT-001_shop-price-overlay.png) | Price centered inside a stray dark overlay instead of the button: **28px off center**, and the overlay is 107px wide in one row, 112px in the next |
-| ![DT-022](docs/images/DT-022_settings-button-height.png) | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
-| ![DT-015](docs/images/DT-015_message-over-label.png) | A status message spawns on top of a world label, so neither is readable |
+| <img src="docs/images/DT-001_shop-price-overlay.png" width="260" alt="DT-001"> | Price centered inside a stray dark overlay instead of the button: **28px off center**, and the overlay is 107px wide in one row, 112px in the next |
+| <img src="docs/images/DT-022_settings-button-height.png" width="260" alt="DT-022"> | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
+| <img src="docs/images/DT-015_message-over-label.png" width="260" alt="DT-015"> | A status message spawns on top of a world label, so neither is readable |
 
 Plus the things a glance misses: emoji mixed with icon glyphs, buy buttons that look active at 0 gems, 3px vs 32px screen margins, white-on-green text at 2.09:1 contrast, toggles with no on/off state.
 
