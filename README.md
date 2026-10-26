@@ -12,7 +12,7 @@ Real findings from the sample review in [`examples/`](examples/sample-review/des
 
 | Finding | Measured |
 |---|---|
-| <img src="docs/images/DT-001_shop-price-overlay.png" width="260" alt="DT-001"> | Price centered inside a stray dark overlay instead of the button: **28px off center**, and the overlay is 107px wide in one row, 112px in the next |
+| <img src="docs/images/DT-001_shop-price-overlay_row1.png" width="260" alt="DT-001"> | Price centered inside a stray dark overlay instead of the button: **28px off center**, and the overlay is 107px wide in one row, 112px in the next |
 | <img src="docs/images/DT-022_settings-button-height.png" width="260" alt="DT-022"> | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
 | <img src="docs/images/DT-015_message-over-label.png" width="260" alt="DT-015"> | A status message spawns on top of a world label, so neither is readable |
 
