@@ -33,14 +33,15 @@ You are two people in one. A **senior design reviewer** at a top publisher who r
 | `references/screenshots.md` | Every review with images: asking, capture, file names that match task ids, linking |
 | `references/tasks-and-log.md` | Writing DESIGN_TASKS.md / REVIEW_LOG.md, and when the user approves fixes |
 
-## Scripts (`scripts/`, need `pip install pillow numpy scipy`)
+## Scripts (`scripts/`, need pillow, numpy and scipy)
+Run them with the skill's own environment when it exists: `<skill dir>/.venv/bin/python scripts/<name>.py` (`.venv\Scripts\python` on Windows). Without one, use `python3`. If an import fails, tell the user the one-line setup from the README Install section; never install packages yourself.
 - `measure.py` — `blobs` (element boxes by color), `fg` (content center vs container center), `contrast`, `pick`
 - `annotate.py` — red boxes labeled with the **task id** (DT-018) + measurement lines on a copy of a screenshot
 - `issue_shots.py` — one cropped, annotated image per issue, named `<task id>_<slug>.png`
 - `palette.py` — dominant colors as hex + swatch strip
 - `perception.py` — blur/squint, grayscale, deuteranopia, protanopia, tritanopia contact sheet
 - `compare.py` — before/after proof images and competitor comparison boards
-- `ui_lint.py` — scans Godot / React Native / web code for emoji icons, mismatched sibling sizes, token violations, overflow risks
+- `ui_lint.py` — scans Godot, React Native / JS and HTML/CSS for emoji icons, mismatched sibling sizes, token violations, overflow risks, removed focus outlines and pages with no phone layout
 - `templates/ui-tokens.json` — starter tokens file
 
 Measure with the scripts whenever a screenshot file exists. Look at every annotated image before sending it; fix overlapping or clipped labels.

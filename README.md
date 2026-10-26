@@ -123,19 +123,24 @@ Each review also has a skeptical player's take, a scorecard across 13 areas, a m
 - **Game depth:** juice checklist, first-session flow, ads and economy judged retention-first, placement logic ("does a supply shelf belong in the lobby?").
 - **Arabic / Hebrew / RTL checks:** mirroring, letter shaping, clipped diacritics, fallback fonts, overflow.
 - **A living task board** (`DESIGN_TASKS.md`) with severity, effort, options, your choice, status and proof, plus a review log that calls out issues reported before and still broken.
-- **UI tokens + lint:** `ui_lint.py` scans Godot and React Native code for emoji icons, mismatched row heights and off-token values.
+- **UI tokens + lint:** `ui_lint.py` scans Godot, React Native and HTML/CSS code for emoji icons, mismatched row heights, off-token values, removed focus outlines and pages with no phone layout.
 - **Read-only until approved.** It never edits your project during a review.
 
 ## Install
 
 **Claude Code**
 ```bash
-git clone https://github.com/Suleiman700/claude-harsh-design-critic ~/.claude/skills/harsh-design-critic
-pip install -r ~/.claude/skills/harsh-design-critic/requirements.txt
+git clone --depth 1 https://github.com/Suleiman700/claude-harsh-design-critic ~/.claude/skills/harsh-design-critic
+cd ~/.claude/skills/harsh-design-critic
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ```
+The scripts' packages (pillow, numpy, scipy) go into the skill's own `.venv`, so your system Python stays untouched; this also avoids the `externally-managed-environment` error on macOS/Homebrew Python. On Windows use `.venv\Scripts\pip`.
+
 For one project only, clone into `<project>/.claude/skills/harsh-design-critic` instead.
 
-**Claude app:** download this repo as a ZIP and upload it as a skill in the app's settings.
+The repo includes the test reviews and their screenshots (about 38 MB). To install only the skill, use the ZIP download below: it leaves the tests out.
+
+**Claude app:** download this repo as a ZIP (**Code → Download ZIP**, about 200 KB, tests and images excluded) and upload it as a skill in the app's settings.
 
 ## Use
 

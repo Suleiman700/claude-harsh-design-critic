@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""UI lint for Godot (.tscn/.gd) and React Native / web (.tsx/.jsx/.ts/.js) projects.
+"""UI lint for Godot (.tscn/.gd), React Native / web (.tsx/.jsx/.ts/.js) and HTML/CSS (.html/.htm/.css) projects.
 
 Catches the defect classes the harsh-design-critic keeps finding, before a build:
   E-EMOJI     OS emoji used in UI text (renders differently per device, can't be themed)
   E-SIBLING   siblings in the same row/container with mismatched heights
+  E-FOCUS     CSS `outline: none` with no :focus style replacing it (keyboard users lose focus)
   W-TOKENS    sizes / radii / colors that are not in the project's ui-tokens.json
   W-SPRAWL    too many distinct font sizes, corner radii or colors (no system)
-  I-OVERFLOW  Godot labels with no wrap / overrun / clip handling (clipping risk)
+  W-MOBILE    HTML page or stylesheet with no @media rule (no phone layout)
+  I-OVERFLOW  Godot labels with no wrap / overrun / clip handling (clipping risk);
+              CSS width / min-width over 320px (overflows a phone screen)
   I-WORLD     Godot Label3D / floating labels: verify on-screen clamping and overlap
 
 Usage:
@@ -28,6 +31,7 @@ EMOJI = re.compile(
 SKIP_DIRS = {".git", "node_modules", ".godot", ".import", "build", "dist", "android", "ios",
              ".expo", "addons", "Pods", "vendor", ".next"}
 CODE_EXT = (".tsx", ".jsx", ".ts", ".js")
+WEB_EXT = (".html", ".htm", ".css")
 
 findings = []
 
@@ -169,6 +173,56 @@ def lint_code(path, stats):
             stats["colors"][h.upper()].append(f"{path}:{i}")
 
 
+# ---------------- HTML / CSS ----------------
+CSS_FONT = re.compile(r"font-size\s*:\s*(\d+(?:\.\d+)?)px")
+CSS_RADIUS = re.compile(r"border-radius\s*:\s*(\d+(?:\.\d+)?)px")
+CSS_WIDE = re.compile(r"(?<![-\w])(min-width|width)\s*:\s*(\d+)px")
+CSS_NO_OUTLINE = re.compile(r"outline\s*:\s*(none|0)\b")
+
+
+def lint_web(path, stats, web):
+    text = open(path, encoding="utf-8", errors="ignore").read()
+    in_script = False
+    for i, line in enumerate(text.splitlines(), 1):
+        low = line.lower()
+        if "<script" in low:
+            in_script = True
+        if not in_script and path.endswith((".html", ".htm")):
+            for seg in JSX_TEXT.findall(line):
+                if EMOJI.search(seg):
+                    add("E-EMOJI", path, i, f'emoji in page text: "{seg.strip()[:40]}" -> use an SVG icon from the set')
+                    break
+        if "</script" in low:
+            in_script = False
+            continue
+        if in_script or "@media" in low:
+            continue
+        for v in CSS_FONT.findall(line):
+            stats["font_sizes"][v].append(f"{path}:{i}")
+        for v in CSS_RADIUS.findall(line):
+            stats["radii"][v].append(f"{path}:{i}")
+        for h in HEX.findall(line):
+            stats["colors"][h.upper()].append(f"{path}:{i}")
+        for prop, px in CSS_WIDE.findall(line):
+            if int(px) > 320:
+                add("I-OVERFLOW", path, i, f"{prop}: {px}px is wider than a 320px phone -> use max-width or %")
+        if CSS_NO_OUTLINE.search(line):
+            web["no_outline"].append((path, i))
+    if re.search(r":focus(-visible)?\s*[{,]", text):
+        # a stylesheet's focus styles apply site-wide; a page's own <style> only to that page
+        web["focus_files"].add("*" if path.endswith(".css") else path)
+    if "@media" not in text and (path.endswith(".css") or "<style" in text):
+        add("W-MOBILE", path, "", "no @media rule: the layout never adapts to a phone screen")
+
+
+def check_focus(web):
+    if "*" in web["focus_files"]:
+        return
+    for path, ln in web["no_outline"]:
+        if path not in web["focus_files"]:
+            add("E-FOCUS", path, ln, "outline removed and no :focus style replaces it -> keyboard focus is invisible")
+
+
 # ---------------- report ----------------
 def check_tokens(stats, tokens):
     mapping = {"font_sizes": "fontSizes", "radii": "radii", "colors": "colors"}
@@ -204,6 +258,7 @@ def main():
         tok_path = os.path.join(a.root, "docs/game-prompts/design-review/ui-tokens.json")  # pre-1.1 location
     tokens = json.load(open(tok_path)) if os.path.exists(tok_path) else {}
     stats = {"font_sizes": defaultdict(list), "radii": defaultdict(list), "colors": defaultdict(list)}
+    web = {"no_outline": [], "focus_files": set()}
 
     for p in walk(a.root):
         if p.endswith(".tscn"):
@@ -212,7 +267,10 @@ def main():
             lint_gd(p)
         elif p.endswith(CODE_EXT) and "/test" not in p:
             lint_code(p, stats)
+        elif p.endswith(WEB_EXT) and "/test" not in p:
+            lint_web(p, stats, web)
 
+    check_focus(web)
     if tokens:
         check_tokens(stats, tokens)
     check_sprawl(stats)
