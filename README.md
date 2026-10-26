@@ -1,11 +1,8 @@
+<p align="center"><img src="docs/images/banner.png" alt="Harsh Design Critic: measures every pixel, marks every flaw, changes nothing until you approve" width="100%"></p>
+
 # Harsh Design Critic — a Claude skill
 
 > A brutal, publisher-grade design reviewer for games, apps and websites. It measures every pixel, marks each issue on your screenshots, compares you with the market, gives 2–3 fixes per problem with its pick, and changes nothing until you approve.
-
-<p align="center">
-  <img src="docs/images/shop-annotated.png" width="45%" alt="Shop screen annotated with task ids">
-  <img src="docs/images/pause-annotated.png" width="45%" alt="Pause menu annotated with task ids">
-</p>
 
 Most AI reviews say "looks clean, maybe tweak the colors". This skill acts like a senior reviewer who has seen a thousand games and a skeptical player looking for a reason to uninstall. It doesn't guess: it runs scripts on your screenshots and reports numbers.
 
@@ -19,11 +16,34 @@ Real findings from the sample review in [`examples/`](examples/sample-review/des
 | <img src="docs/images/DT-022_settings-button-height.png" width="260" alt="DT-022"> | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
 | <img src="docs/images/DT-015_message-over-label.png" width="260" alt="DT-015"> | A status message spawns on top of a world label, so neither is readable |
 
-Plus the things a glance misses: emoji mixed with icon glyphs, buy buttons that look active at 0 gems, 3px vs 32px screen margins, white-on-green text at 2.09:1 contrast, toggles with no on/off state.
+Plus the things a glance misses:
+
+| | | |
+|---|---|---|
+| <img src="docs/images/DT-002_cant-afford-buttons.png" width="250" alt="DT-002"><br>**Buy buttons fully active at 0 gems**: no can't-afford state | <img src="docs/images/DT-005_mixed-icons_pause.png" width="250" alt="DT-005"><br>**Home is an OS emoji** next to white glyph icons | <img src="docs/images/DT-018_resume-contrast.png" width="250" alt="DT-018"><br>**White on green at 2.09:1**: fails WCAG contrast |
+| <img src="docs/images/DT-003_shop-button-heights.png" width="250" alt="DT-003"><br>**Buy buttons 134px vs 179px**: they stretch with the card | <img src="docs/images/DT-004_shop-card-margins.png" width="250" alt="DT-004"><br>**Screen margins 3px vs 32px**: cards hug the left edge | <img src="docs/images/DT-024_plus-position.png" width="250" alt="DT-024"><br>**"+" moves with the number**: 147px vs 111px from the pill edge |
+| <img src="docs/images/DT-014_world-label-clipped.png" width="250" alt="DT-014"><br>**World label clipped** by the screen edge and a HUD button | <img src="docs/images/DT-013_pieces-grayscale.png" width="250" alt="DT-013"><br>**Pieces collapse to one gray**: color is the only difference | <img src="docs/images/shop-palette.png" width="250" alt="Palette"><br>**Palette audit**: the real colors on screen, as hex with share |
 
 <p align="center">
   <img src="docs/images/perception-sheet.png" width="80%" alt="Blur, grayscale and colorblind simulations">
   <br><em>Perception sheet: the blur test shows the booster buttons dissolving into the background, and in grayscale the green, purple and pink pieces become one gray.</em>
+</p>
+
+## Full annotated screens
+
+Every box is labeled with its task id, so you can find it in `DESIGN_TASKS.md` and the review, and the cyan lines show measurements in pixels.
+
+<p align="center">
+  <img src="docs/images/shop-annotated.png" width="32%" alt="Shop screen, annotated">
+  <img src="docs/images/pause-annotated.png" width="32%" alt="Pause menu, annotated">
+  <img src="docs/images/booster-annotated.png" width="32%" alt="Gameplay booster bar, annotated">
+</p>
+<p align="center">
+  <img src="docs/images/topbar-annotated.png" width="96%" alt="Top bar with height measurements: pills 70px, settings 109px">
+</p>
+<p align="center">
+  <img src="docs/images/hotel-annotated.png" width="40%" alt="Hotel game HUD, annotated">
+  <img src="docs/images/reception-annotated.png" width="55%" alt="Reception with overlapping labels, annotated">
 </p>
 
 ## How a review looks
