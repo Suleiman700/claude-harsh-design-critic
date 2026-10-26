@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-10-26
+- `annotate.py`: badges are placed outside their box first and never on another marked box, so they stop covering the text they point at. New `badge_xy` to pin a badge by hand.
+- `issue_shots.py`: measurement labels that would overlap in the label strip are moved apart.
+- Two more example reviews (Nova Survivor, Word Wheel) and clean test screenshots in `tests/screenshots/`.
+
 ## 1.0.0 — 2026-10-26
 First published version.
 

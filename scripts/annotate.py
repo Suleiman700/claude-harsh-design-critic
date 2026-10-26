@@ -9,8 +9,11 @@ spec.json:
   "issues": [
     {"n": "DT-018", "box": [x1, y1, x2, y2]},          # red badge with the task id (or a number)
     {"n": "DT-005", "box": [x1, y1, x2, y2], "shape": "circle"},
-    {"n": "DT-005", "box": [x1, y1, x2, y2], "badge": false}   # same issue elsewhere: thin box, no label
+    {"n": "DT-005", "box": [x1, y1, x2, y2], "badge": false},  # same issue elsewhere: thin box, no label
+    {"n": "DT-009", "box": [x1, y1, x2, y2], "badge_xy": [x, y]}   # optional: put the badge exactly here
   ],
+Badges are placed outside their box when possible and never on another badge or a marked box.
+When the only free spot would cover unmarked text, pass "badge_xy" with an empty spot.
   "measures": [
     {"line": [x1, y1, x2, y2], "text": "72px"}          # cyan measurement line
   ]
@@ -105,19 +108,30 @@ def main():
         half = max(r, d.textlength(str(it["n"]), font=fb) / 2 + 8 * scale)
         W, H = im.size
         clamp = lambda x, y: (min(max(x, half), W - half), min(max(y, r), H - r))
-        # Stay attached to the box: try its corners and edges, then just above/below them.
-        cands = [(x1 + half - r, y1), (x2 - half + r, y1), (x1 + half - r, y2), (x2 - half + r, y2),
-                 ((x1 + x2) / 2, y1), ((x1 + x2) / 2, y2),
-                 (x1 + half - r, y1 - 2.2 * r), (x2 - half + r, y1 - 2.2 * r),
-                 (x1 + half - r, y2 + 2.2 * r), (x2 - half + r, y2 + 2.2 * r),
-                 (x1 - half - 4, (y1 + y2) / 2), (x2 + half + 4, (y1 + y2) / 2)]
-        free = lambda bx, by: all(abs(bx - p[0]) >= half + p[2] + 4 or abs(by - p[1]) >= 2.1 * r for p in placed)
-        bx, by = clamp(*cands[0])
-        for c in cands:
-            cx, cy = clamp(*c)
-            if free(cx, cy):
-                bx, by = cx, cy
+        # Badges must never cover what they mark. Try spots just outside the box first (above, below,
+        # beside), then fall back to its corners. A spot is free when it overlaps no other badge
+        # and no marked box (its own included).
+        g = 4 * scale
+        cands = [(x1 + half, y1 - r - g), (x2 - half, y1 - r - g), (x1 + half, y2 + r + g), (x2 - half, y2 + r + g),
+                 (x1 - half - g, (y1 + y2) / 2), (x2 + half + g, (y1 + y2) / 2),
+                 ((x1 + x2) / 2, y1 - r - g), ((x1 + x2) / 2, y2 + r + g),
+                 (x1 + half - r, y1), (x2 - half + r, y1), (x1 + half - r, y2), (x2 - half + r, y2)]
+        boxes = [i["box"] for i in spec.get("issues", [])]
+        hits_box = lambda bx, by: any(bx + half > b[0] and bx - half < b[2] and by + r > b[1] and by - r < b[3]
+                                      for b in boxes)
+        free_badge = lambda bx, by: all(abs(bx - p[0]) >= half + p[2] + 4 or abs(by - p[1]) >= 2.1 * r
+                                        for p in placed)
+        bx, by = (clamp(*it["badge_xy"]) if "badge_xy" in it else (None, None))  # reviewer's explicit spot
+        for strict in ((True, False) if bx is None else ()):  # first pass: clear of every box; second: clear of badges only
+            for c in cands:
+                cx, cy = clamp(*c)
+                if free_badge(cx, cy) and (not strict or not hits_box(cx, cy)):
+                    bx, by = cx, cy
+                    break
+            if bx is not None:
                 break
+        if bx is None:
+            bx, by = clamp(*cands[0])
         placed.append((bx, by, half))
         badge(d, bx, by, it["n"], scale)
 

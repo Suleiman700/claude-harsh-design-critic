@@ -67,6 +67,7 @@ def main():
         for b in boxes:
             d.rectangle(sh(b), outline=RED, width=lw)
         ch = y2 - y1
+        taken = []  # label spans already used in the strip, so close measures never print on top of each other
         for m in measures:
             lx1, ly1, lx2, ly2 = sh(m["line"])
             d.line([lx1, ly1, lx2, ly2], fill=CYAN, width=max(2, lw - 1))
@@ -76,6 +77,11 @@ def main():
                 d.line([mx, yy, mx, yy + 3], fill=CYAN, width=2)
             tw = d.textlength(m["text"], font=f)
             tx = min(max(4, mx - tw / 2), cw - tw - 4)
+            for a, b in sorted(taken):
+                if tx < b + 12 and tx + tw > a - 12:  # overlaps a placed label: move past it
+                    tx = b + 12 if mx >= (a + b) / 2 else a - 12 - tw
+            tx = min(max(4, tx), cw - tw - 4)
+            taken.append((tx, tx + tw))
             ty = ch + 8
             d.text((tx, ty), m["text"], font=f, fill=CYAN)
         crop = img

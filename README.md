@@ -46,6 +46,36 @@ Every box is labeled with its task id, so you can find it in `DESIGN_TASKS.md` a
   <img src="docs/images/reception-annotated.png" width="55%" alt="Reception with overlapping labels, annotated">
 </p>
 
+## More examples: two more games
+
+The same skill on real phone screenshots from two other games, a synthwave shooter and a word puzzle. Screenshots are in [`tests/screenshots/`](tests/screenshots/), and each full review is linked in its heading.
+
+### [Nova Survivor](examples/nova-survivor/design-review/reviews/2026-10-26-review.md): 5/10
+
+| | | |
+|---|---|---|
+| <img src="examples/nova-survivor/design-review/screenshots/issues/DT-001_menu-button-widths.png" width="250" alt="DT-001"><br>**Four button widths**: 861 / 599 / 1071 / 605px, and the left edge jumps from 164 to 59 | <img src="examples/nova-survivor/design-review/screenshots/issues/DT-008_cant-afford.png" width="250" alt="DT-008"><br>**Balance 50, cheapest price 375**, yet every price looks buyable | <img src="examples/nova-survivor/design-review/screenshots/issues/DT-002_grid-gaps.png" width="250" alt="DT-002"><br>**Column gap 7px vs row gap 23px**: grid buttons almost touch |
+| <img src="examples/nova-survivor/design-review/screenshots/issues/DT-011_level-pips.png" width="250" alt="DT-011"><br>**Level pips at 1.42:1**: progress you can't see | <img src="examples/nova-survivor/design-review/screenshots/issues/DT-003_story-reads-as-reward.png" width="250" alt="DT-003"><br>**STORY uses the reward yellow** of Daily reward and +100 | <img src="examples/nova-survivor/design-review/screenshots/issues/DT-006_dev-button.png" width="250" alt="DT-006"><br>**DEV button on screen**, label at 2.93:1 |
+
+<p align="center">
+  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_annotated.png" width="40%" alt="Nova Survivor main menu, annotated">
+  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="40%" alt="Nova Survivor shop, annotated: 315px dead space under BACK">
+</p>
+
+### [Word Wheel](examples/word-wheel/design-review/reviews/2026-10-26-review.md): 6/10
+
+| | | |
+|---|---|---|
+| <img src="examples/word-wheel/design-review/screenshots/issues/DT-001_top-bar-heights.png" width="250" alt="DT-001"><br>**Gear 151px with a 3D lip** next to flat **105px** pills | <img src="examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png" width="250" alt="DT-002"><br>**Title 35px left of center**: centered between the buttons, not on the screen | <img src="examples/word-wheel/design-review/screenshots/issues/DT-003_locked-label-contrast.png" width="250" alt="DT-003"><br>**Locked labels at 2.90:1** |
+| <img src="examples/word-wheel/design-review/screenshots/issues/DT-006_level-digit-offset.png" width="250" alt="DT-006"><br>**Digits 7px lower** on locked tiles (459 vs 452) | <img src="examples/word-wheel/design-review/screenshots/issues/DT-005_coin-icon-styles.png" width="250" alt="DT-005"><br>**Outline coin on Day 1**, filled coins everywhere else | <img src="examples/word-wheel/design-review/screenshots/issues/DT-007_nav-label-padding.png" width="250" alt="DT-007"><br>**"More games" has 12px padding**: no room for translations |
+
+<p align="center">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="24%" alt="Word Wheel home, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="24%" alt="Word Wheel daily reward, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="24%" alt="Word Wheel challenges, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="24%" alt="Word Wheel packs, annotated">
+</p>
+
 ## How a review looks
 
 Every finding becomes a question with options and a pick:
@@ -125,6 +155,9 @@ references/                  loaded only when a step needs them
 scripts/                     measure · annotate · issue_shots · palette · perception · compare · ui_lint
 templates/ui-tokens.json     starter tokens
 examples/sample-review/      a full real review: report, task board, all images
+examples/nova-survivor/      review of a synthwave shooter: menu + shop
+examples/word-wheel/         review of a word puzzle: home, reward, challenges, packs
+tests/screenshots/           clean phone screenshots (system bars removed) used by the examples
 ```
 
 ## License
