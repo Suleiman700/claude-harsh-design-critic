@@ -63,47 +63,47 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-001](examples/sample-review/design-review/screenshots/issues/DT-001_shop-price-overlay.png) | 🔴 Critical | Price centered inside a stray dark overlay, **28px** right of the button center; overlay 107px wide in one row, 112px in the others |
-| [DT-002](examples/sample-review/design-review/screenshots/issues/DT-002_cant-afford-buttons.png) | 🟠 Major | Every buy button looks active while the player has **0 gems**: no can't-afford state |
-| [DT-003](examples/sample-review/design-review/screenshots/issues/DT-003_shop-button-heights.png) | 🟠 Major | Buy buttons **134px** tall in row 1, **179px** in rows 2–3: they stretch with the card |
-| [DT-004](examples/sample-review/design-review/screenshots/issues/DT-004_shop-card-margins.png) | 🟠 Major | Cards **3px** from the left edge, **32px** from the right |
-| [DT-005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_shop.png) | 🟠 Major | Hammer and bomb are emoji-style art, swap is a flat glyph: mixed icon styles |
-| [DT-006](examples/sample-review/design-review/screenshots/issues/DT-006_shop-description-contrast.png) | 🟡 Minor | Descriptions `#6B7BA8` on cream: **3.76:1**, below 4.5:1 |
+| [DT&#8209;001](examples/sample-review/design-review/screenshots/issues/DT-001_shop-price-overlay.png) | 🔴&nbsp;Critical | Price centered inside a stray dark overlay, **28px** right of the button center; overlay 107px wide in one row, 112px in the others |
+| [DT&#8209;002](examples/sample-review/design-review/screenshots/issues/DT-002_cant-afford-buttons.png) | 🟠&nbsp;Major | Every buy button looks active while the player has **0 gems**: no can't-afford state |
+| [DT&#8209;003](examples/sample-review/design-review/screenshots/issues/DT-003_shop-button-heights.png) | 🟠&nbsp;Major | Buy buttons **134px** tall in row 1, **179px** in rows 2–3: they stretch with the card |
+| [DT&#8209;004](examples/sample-review/design-review/screenshots/issues/DT-004_shop-card-margins.png) | 🟠&nbsp;Major | Cards **3px** from the left edge, **32px** from the right |
+| [DT&#8209;005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_shop.png) | 🟠&nbsp;Major | Hammer and bomb are emoji-style art, swap is a flat glyph: mixed icon styles |
+| [DT&#8209;006](examples/sample-review/design-review/screenshots/issues/DT-006_shop-description-contrast.png) | 🟡&nbsp;Minor | Descriptions `#6B7BA8` on cream: **3.76:1**, below 4.5:1 |
 **Gameplay and booster bar**
 
 <p align="center"><img src="docs/images/booster-annotated.png" width="45%" alt="Puzzle gameplay booster bar, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-007](examples/sample-review/design-review/screenshots/issues/DT-007_booster-off-theme.png) | 🟠 Major | Boosters flat blue on a blue background (**2.11:1**), ignore the wood-and-gold theme |
-| [DT-005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_booster.png) | 🟠 Major | Booster icons mix emoji (hammer, bomb) with white glyphs (swap, lightning) |
-| [DT-008](examples/sample-review/design-review/screenshots/issues/DT-008_pill-count-vs-price.png) | 🟠 Major | The same green pill means "owned count" (x1) and "price" (💎25) |
-| [DT-013](examples/sample-review/design-review/screenshots/issues/DT-013_pieces-grayscale.png) | 🟠 Major | Green, purple and pink pieces turn into one gray (see the perception sheet above) |
-| [DT-010](examples/sample-review/design-review/screenshots/issues/DT-010_tray-piece-spacing.png) | 🟡 Minor | Tray pieces unevenly spaced across the tray |
-| [DT-011](examples/sample-review/design-review/screenshots/issues/DT-011_booster-bar-width.png) | 🟡 Minor | Booster bar ~500px wide under a ~900px tray: ~200px dead space each side |
-| [DT-009](examples/sample-review/design-review/screenshots/issues/DT-009_ghost-blob.png) | ⚪ Nitpick | Grey ghost blobs left of the booster bar |
-| [DT-012](examples/sample-review/design-review/screenshots/issues/DT-012_tray-lip.png) | ⚪ Nitpick | Tray frame has a cream bottom lip, the board frame doesn't |
+| [DT&#8209;007](examples/sample-review/design-review/screenshots/issues/DT-007_booster-off-theme.png) | 🟠&nbsp;Major | Boosters flat blue on a blue background (**2.11:1**), ignore the wood-and-gold theme |
+| [DT&#8209;005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_booster.png) | 🟠&nbsp;Major | Booster icons mix emoji (hammer, bomb) with white glyphs (swap, lightning) |
+| [DT&#8209;008](examples/sample-review/design-review/screenshots/issues/DT-008_pill-count-vs-price.png) | 🟠&nbsp;Major | The same green pill means "owned count" (x1) and "price" (💎25) |
+| [DT&#8209;013](examples/sample-review/design-review/screenshots/issues/DT-013_pieces-grayscale.png) | 🟠&nbsp;Major | Green, purple and pink pieces turn into one gray (see the perception sheet above) |
+| [DT&#8209;010](examples/sample-review/design-review/screenshots/issues/DT-010_tray-piece-spacing.png) | 🟡&nbsp;Minor | Tray pieces unevenly spaced across the tray |
+| [DT&#8209;011](examples/sample-review/design-review/screenshots/issues/DT-011_booster-bar-width.png) | 🟡&nbsp;Minor | Booster bar ~500px wide under a ~900px tray: ~200px dead space each side |
+| [DT&#8209;009](examples/sample-review/design-review/screenshots/issues/DT-009_ghost-blob.png) | ⚪&nbsp;Nitpick | Grey ghost blobs left of the booster bar |
+| [DT&#8209;012](examples/sample-review/design-review/screenshots/issues/DT-012_tray-lip.png) | ⚪&nbsp;Nitpick | Tray frame has a cream bottom lip, the board frame doesn't |
 **Pause menu**
 
 <p align="center"><img src="docs/images/pause-annotated.png" width="45%" alt="Puzzle pause menu, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-018](examples/sample-review/design-review/screenshots/issues/DT-018_resume-contrast.png) | 🟠 Major | White "Resume" on green: **2.09:1** |
-| [DT-021](examples/sample-review/design-review/screenshots/issues/DT-021_toggle-no-state.png) | 🟠 Major | Music and Sound toggles show no on/off state |
-| [DT-005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_pause.png) | 🟠 Major | Home is an OS emoji 🏠 next to white glyph icons |
-| [DT-019](examples/sample-review/design-review/screenshots/issues/DT-019_header-overlaps-resume.png) | 🟡 Minor | "Paused" header overlaps the Resume button by **15px** |
-| [DT-020](examples/sample-review/design-review/screenshots/issues/DT-020_pause-label-contrast.png) | 🟡 Minor | Button labels `#C3D1EE` on blue: **3.99:1** |
+| [DT&#8209;018](examples/sample-review/design-review/screenshots/issues/DT-018_resume-contrast.png) | 🟠&nbsp;Major | White "Resume" on green: **2.09:1** |
+| [DT&#8209;021](examples/sample-review/design-review/screenshots/issues/DT-021_toggle-no-state.png) | 🟠&nbsp;Major | Music and Sound toggles show no on/off state |
+| [DT&#8209;005](examples/sample-review/design-review/screenshots/issues/DT-005_mixed-icons_pause.png) | 🟠&nbsp;Major | Home is an OS emoji 🏠 next to white glyph icons |
+| [DT&#8209;019](examples/sample-review/design-review/screenshots/issues/DT-019_header-overlaps-resume.png) | 🟡&nbsp;Minor | "Paused" header overlaps the Resume button by **15px** |
+| [DT&#8209;020](examples/sample-review/design-review/screenshots/issues/DT-020_pause-label-contrast.png) | 🟡&nbsp;Minor | Button labels `#C3D1EE` on blue: **3.99:1** |
 **Top bar**
 
 <p align="center"><img src="docs/images/topbar-annotated.png" width="90%" alt="Puzzle top bar, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-022](examples/sample-review/design-review/screenshots/issues/DT-022_settings-button-height.png) | 🟠 Major | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
-| [DT-023](examples/sample-review/design-review/screenshots/issues/DT-023_pill-dead-space.png) | 🟡 Minor | Currency pills 50–59% empty |
-| [DT-024](examples/sample-review/design-review/screenshots/issues/DT-024_plus-position.png) | 🟡 Minor | "+" moves with the number: **147px** vs **111px** from the pill edge |
-| [DT-025](examples/sample-review/design-review/screenshots/issues/DT-025_currency-icon-styles.png) | ⚪ Nitpick | Coin is a letter "C" glyph, gem is a stylized icon: two icon styles |
+| [DT&#8209;022](examples/sample-review/design-review/screenshots/issues/DT-022_settings-button-height.png) | 🟠&nbsp;Major | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
+| [DT&#8209;023](examples/sample-review/design-review/screenshots/issues/DT-023_pill-dead-space.png) | 🟡&nbsp;Minor | Currency pills 50–59% empty |
+| [DT&#8209;024](examples/sample-review/design-review/screenshots/issues/DT-024_plus-position.png) | 🟡&nbsp;Minor | "+" moves with the number: **147px** vs **111px** from the pill edge |
+| [DT&#8209;025](examples/sample-review/design-review/screenshots/issues/DT-025_currency-icon-styles.png) | ⚪&nbsp;Nitpick | Coin is a letter "C" glyph, gem is a stylized icon: two icon styles |
 
 #### Hotel tycoon
 
@@ -113,16 +113,16 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-014](examples/sample-review/design-review/screenshots/issues/DT-014_world-label-clipped.png) | 🔴 Critical | "2nd Reception" name plate clipped by the screen edge and covered by the Free $ button |
+| [DT&#8209;014](examples/sample-review/design-review/screenshots/issues/DT-014_world-label-clipped.png) | 🔴&nbsp;Critical | "2nd Reception" name plate clipped by the screen edge and covered by the Free $ button |
 **Reception**
 
 <p align="center"><img src="docs/images/reception-annotated.png" width="55%" alt="Tycoon reception, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-015](examples/sample-review/design-review/screenshots/issues/DT-015_message-over-label.png) | 🔴 Critical | "No free room!" printed on top of "RECEPTION": neither is readable |
-| [DT-016](examples/sample-review/design-review/screenshots/issues/DT-016_receptionist-label-clipped.png) | 🟠 Major | "Receptionist" label clipped at the right edge |
-| [DT-017](examples/sample-review/design-review/screenshots/issues/DT-017_cut-off-side-panel.png) | 🟡 Minor | A side panel cut off at the right edge |
+| [DT&#8209;015](examples/sample-review/design-review/screenshots/issues/DT-015_message-over-label.png) | 🔴&nbsp;Critical | "No free room!" printed on top of "RECEPTION": neither is readable |
+| [DT&#8209;016](examples/sample-review/design-review/screenshots/issues/DT-016_receptionist-label-clipped.png) | 🟠&nbsp;Major | "Receptionist" label clipped at the right edge |
+| [DT&#8209;017](examples/sample-review/design-review/screenshots/issues/DT-017_cut-off-side-panel.png) | 🟡&nbsp;Minor | A side panel cut off at the right edge |
 
 ### Test 2 · Synthwave survivor shooter — 5/10
 
@@ -136,24 +136,24 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-001](examples/nova-survivor/design-review/screenshots/issues/DT-001_menu-button-widths.png) | 🟠 Major | Four button widths (**861 / 599 / 1071 / 605px**) and five heights; left edge jumps from 164 to 59 |
-| [DT-002](examples/nova-survivor/design-review/screenshots/issues/DT-002_grid-gaps.png) | 🟠 Major | Grid column gap **7px** vs row gap **23px** |
-| [DT-003](examples/nova-survivor/design-review/screenshots/issues/DT-003_story-reads-as-reward.png) | 🟠 Major | STORY uses the same yellow as the reward buttons, and out-shines START in grayscale |
-| [DT-006](examples/nova-survivor/design-review/screenshots/issues/DT-006_dev-button.png) | 🟠 Major | DEV button visible in the build, label at **2.93:1** |
-| [DT-004](examples/nova-survivor/design-review/screenshots/issues/DT-004_lines-through-labels.png) | 🟡 Minor | Grid and horizon lines run through MISSIONS and HOW TO PLAY |
-| [DT-005](examples/nova-survivor/design-review/screenshots/issues/DT-005_difficulty-label.png) | 🟡 Minor | "DIFFICULTY: NORMAL" is **17px** tall text with no control look |
-| [DT-007](examples/nova-survivor/design-review/screenshots/issues/DT-007_quit-button.png) | 🟡 Minor | QUIT (605×114) takes the thumb zone; Android back already exits |
+| [DT&#8209;001](examples/nova-survivor/design-review/screenshots/issues/DT-001_menu-button-widths.png) | 🟠&nbsp;Major | Four button widths (**861 / 599 / 1071 / 605px**) and five heights; left edge jumps from 164 to 59 |
+| [DT&#8209;002](examples/nova-survivor/design-review/screenshots/issues/DT-002_grid-gaps.png) | 🟠&nbsp;Major | Grid column gap **7px** vs row gap **23px** |
+| [DT&#8209;003](examples/nova-survivor/design-review/screenshots/issues/DT-003_story-reads-as-reward.png) | 🟠&nbsp;Major | STORY uses the same yellow as the reward buttons, and out-shines START in grayscale |
+| [DT&#8209;006](examples/nova-survivor/design-review/screenshots/issues/DT-006_dev-button.png) | 🟠&nbsp;Major | DEV button visible in the build, label at **2.93:1** |
+| [DT&#8209;004](examples/nova-survivor/design-review/screenshots/issues/DT-004_lines-through-labels.png) | 🟡&nbsp;Minor | Grid and horizon lines run through MISSIONS and HOW TO PLAY |
+| [DT&#8209;005](examples/nova-survivor/design-review/screenshots/issues/DT-005_difficulty-label.png) | 🟡&nbsp;Minor | "DIFFICULTY: NORMAL" is **17px** tall text with no control look |
+| [DT&#8209;007](examples/nova-survivor/design-review/screenshots/issues/DT-007_quit-button.png) | 🟡&nbsp;Minor | QUIT (605×114) takes the thumb zone; Android back already exits |
 **Shop**
 
 <p align="center"><img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="45%" alt="Survivor shooter shop, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-008](examples/nova-survivor/design-review/screenshots/issues/DT-008_cant-afford.png) | 🟠 Major | Balance **50**, cheapest price **375**, yet every price looks buyable |
-| [DT-009](examples/nova-survivor/design-review/screenshots/issues/DT-009_dead-space.png) | 🟠 Major | **315px** dead space under BACK and 153px above SHOP while the list is cut mid-card |
-| [DT-010](examples/nova-survivor/design-review/screenshots/issues/DT-010_unequal-margins.png) | 🟡 Minor | Margins **23px** left vs **45px** right; content 11px left of center |
-| [DT-011](examples/nova-survivor/design-review/screenshots/issues/DT-011_level-pips.png) | 🟡 Minor | Level pips `#2B2C36` on `#090B16`: **1.42:1** |
-| [DT-012](examples/nova-survivor/design-review/screenshots/issues/DT-012_tab-case.png) | 🟡 Minor | Tabs "SHIPS · UPGRADES · Store": one tab breaks the uppercase set |
+| [DT&#8209;008](examples/nova-survivor/design-review/screenshots/issues/DT-008_cant-afford.png) | 🟠&nbsp;Major | Balance **50**, cheapest price **375**, yet every price looks buyable |
+| [DT&#8209;009](examples/nova-survivor/design-review/screenshots/issues/DT-009_dead-space.png) | 🟠&nbsp;Major | **315px** dead space under BACK and 153px above SHOP while the list is cut mid-card |
+| [DT&#8209;010](examples/nova-survivor/design-review/screenshots/issues/DT-010_unequal-margins.png) | 🟡&nbsp;Minor | Margins **23px** left vs **45px** right; content 11px left of center |
+| [DT&#8209;011](examples/nova-survivor/design-review/screenshots/issues/DT-011_level-pips.png) | 🟡&nbsp;Minor | Level pips `#2B2C36` on `#090B16`: **1.42:1** |
+| [DT&#8209;012](examples/nova-survivor/design-review/screenshots/issues/DT-012_tab-case.png) | 🟡&nbsp;Minor | Tabs "SHIPS · UPGRADES · Store": one tab breaks the uppercase set |
 
 ### Test 3 · Swipe-to-spell word puzzle — 6/10
 
@@ -167,34 +167,34 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-001](examples/word-wheel/design-review/screenshots/issues/DT-001_top-bar-heights.png) | 🟠 Major | Gear button **136×151** with a 3D lip next to flat **105px** pills; top edges at y 9 vs 32 |
-| [DT-007](examples/word-wheel/design-review/screenshots/issues/DT-007_nav-label-padding.png) | 🟡 Minor | "More games" label has **12px** padding in its tile: Arabic or Hebrew won't fit |
+| [DT&#8209;001](examples/word-wheel/design-review/screenshots/issues/DT-001_top-bar-heights.png) | 🟠&nbsp;Major | Gear button **136×151** with a 3D lip next to flat **105px** pills; top edges at y 9 vs 32 |
+| [DT&#8209;007](examples/word-wheel/design-review/screenshots/issues/DT-007_nav-label-padding.png) | 🟡&nbsp;Minor | "More games" label has **12px** padding in its tile: Arabic or Hebrew won't fit |
 **Daily reward**
 
 <p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="40%" alt="Word puzzle daily reward, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-003](examples/word-wheel/design-review/screenshots/issues/DT-003_locked-label-contrast.png) | 🟠 Major | Locked day labels `#73A1A1` on `#135758`: **2.90:1** |
-| [DT-005](examples/word-wheel/design-review/screenshots/issues/DT-005_coin-icon-styles.png) | 🟡 Minor | Day 1 coin is an outline ring; every other coin is filled |
+| [DT&#8209;003](examples/word-wheel/design-review/screenshots/issues/DT-003_locked-label-contrast.png) | 🟠&nbsp;Major | Locked day labels `#73A1A1` on `#135758`: **2.90:1** |
+| [DT&#8209;005](examples/word-wheel/design-review/screenshots/issues/DT-005_coin-icon-styles.png) | 🟡&nbsp;Minor | Day 1 coin is an outline ring; every other coin is filled |
 **Challenges**
 
 <p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="40%" alt="Word puzzle challenges, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-004](examples/word-wheel/design-review/screenshots/issues/DT-004_rewards-look-disabled.png) | 🟠 Major | Rewards you can still earn look disabled: number `#8EB4B0` on `#2A6A69`, **2.77:1** |
-| [DT-001](examples/word-wheel/design-review/screenshots/issues/DT-001_top-bar-heights.png) | 🟠 Major | Back button with a 3D lip next to the flat coin pill |
-| [DT-002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡 Minor | Title centered between two buttons, **35px** left of the screen center |
+| [DT&#8209;004](examples/word-wheel/design-review/screenshots/issues/DT-004_rewards-look-disabled.png) | 🟠&nbsp;Major | Rewards you can still earn look disabled: number `#8EB4B0` on `#2A6A69`, **2.77:1** |
+| [DT&#8209;001](examples/word-wheel/design-review/screenshots/issues/DT-001_top-bar-heights.png) | 🟠&nbsp;Major | Back button with a 3D lip next to the flat coin pill |
+| [DT&#8209;002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡&nbsp;Minor | Title centered between two buttons, **35px** left of the screen center |
 **Packs**
 
 <p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="40%" alt="Word puzzle packs, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
-| [DT-008](examples/word-wheel/design-review/screenshots/issues/DT-008_locked-packs-no-goal.png) | 🟡 Minor | Locked packs show an empty bar and never say how to unlock them |
-| [DT-006](examples/word-wheel/design-review/screenshots/issues/DT-006_level-digit-offset.png) | 🟡 Minor | Level digits **7px** lower on locked tiles than on unlocked ones |
-| [DT-002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡 Minor | Title 35px left of the screen center, as on every screen |
+| [DT&#8209;008](examples/word-wheel/design-review/screenshots/issues/DT-008_locked-packs-no-goal.png) | 🟡&nbsp;Minor | Locked packs show an empty bar and never say how to unlock them |
+| [DT&#8209;006](examples/word-wheel/design-review/screenshots/issues/DT-006_level-digit-offset.png) | 🟡&nbsp;Minor | Level digits **7px** lower on locked tiles than on unlocked ones |
+| [DT&#8209;002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡&nbsp;Minor | Title 35px left of the screen center, as on every screen |
 
 The clean screenshots used in tests 2 and 3 are in [`tests/screenshots/`](tests/screenshots/), with the phone status bar and gesture bar removed.
 
