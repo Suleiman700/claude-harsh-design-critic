@@ -1,7 +1,5 @@
 # Test 3 · Swipe-to-spell word puzzle — 6/10
 
-> "Clean and calm, but locked, unearned and disabled all look the same faded teal."
-
 8 issues across 4 screens. What works: home margins equal to the pixel, one tight palette, primary action always in thumb reach.
 
 **Home**

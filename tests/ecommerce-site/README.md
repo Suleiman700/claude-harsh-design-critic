@@ -1,7 +1,5 @@
 # E-commerce site: blind test
 
-> "The checkout adds my mugs up wrong, charges shipping it promised was free, and the product page has no Add to cart on my phone."
-
 **Planted issues found: 42 / 42**, plus **16 real problems nobody planted**. Score **3/10**.
 
 ## How the test was run

@@ -1,7 +1,5 @@
 # Test 2 · Synthwave survivor shooter — 5/10
 
-> "Strong synthwave mood, but the menu is four different button systems and the shop sells things I can't afford without telling me."
-
 12 issues across 2 screens.
 
 **Main menu**

@@ -1,7 +1,5 @@
 # Test 1 · Block puzzle game + hotel tycoon game — 4/10
 
-> "The board looks like a game. Everything around it looks like a prototype."
-
 25 issues across 6 screens from two games. Click an ID to see its close-up.
 
 ## Block puzzle
