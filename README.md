@@ -45,16 +45,6 @@ The [e-commerce blind test](tests/ecommerce-site/README.md) checks what a shoppe
 
 Also part of every review: a consumer verdict and a score out of 10, 2–3 fixes per issue with a pick, and a task board with before/after proof once you approve. Competitor comparison, game feel and economy, and RTL checks run when they apply. See [Features](#features).
 
-### Perception tests
-
-Blur, grayscale and three colorblind simulations in one sheet. They show problems a normal look misses.
-
-<p align="center">
-  <img src="tests/nova-survivor/design-review/screenshots/screens/review-01_main-menu_perception.png" width="45%" alt="Survivor shooter perception sheet">
-  <img src="docs/images/perception-sheet.png" width="45%" alt="Block puzzle perception sheet">
-  <br><em>Left (survivor shooter): in grayscale STORY is brighter than START, so the second option is the loudest button. Right (block puzzle): the green, purple and pink pieces turn into one gray.</em>
-</p>
-
 ## Real-world tests
 
 The skill has been run on four real mobile games and one website with planted defects, in four tests. Each test has a full review, annotated screens and one cropped image per issue.
