@@ -3,7 +3,7 @@
 ## 1.1.0 — 2026-10-26
 - **Output folder moved:** everything the skill writes now goes to `docs/harsh-design-critic/` (`design-review/`, `market-research/`) instead of `docs/game-prompts/`. Old reviews in `docs/game-prompts/` are read as history, and the skill asks once before moving them. `ui_lint.py` still finds `ui-tokens.json` in the old location.
 - New blind test: `tests/ecommerce-site/`, three store pages with 42 planted defects. Found 42/42, plus 16 issues that weren't planted.
-- README: Test 4 section, and a "Full test" link under every test.
+- All tests now live in `tests/<name>/` (each with a README holding every finding); `examples/` and `tests/screenshots/` were folded in. The main README keeps a short summary per test with a "Full test" link.
 
 ## 1.0.1 — 2026-10-26
 - `annotate.py`: badges are placed outside their box first and never on another marked box, so they stop covering the text they point at. New `badge_xy` to pin a badge by hand.
