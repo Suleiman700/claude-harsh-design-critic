@@ -45,6 +45,8 @@ def simulate(im, m):
 
 
 def main():
+    if len(sys.argv) < 3 or sys.argv[1] in ("-h", "--help"):
+        sys.exit(__doc__)
     src, out = sys.argv[1:3]
     im = Image.open(src).convert("RGB")
     if max(im.size) > 700:

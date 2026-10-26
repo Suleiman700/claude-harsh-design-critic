@@ -115,6 +115,8 @@ Each review also has a skeptical player's take, a scorecard across 13 areas, a m
 
 ## Features
 
+- **Quick or Full, your choice.** Quick gives the top 10 findings at one width; Full covers everything. You also decide whether issues are marked on screenshots, which costs extra credits and time.
+- **Websites captured and measured in one command:** `web_capture.py` renders the page at any width (390px phones included) and in forced states (hover, focus, errors, clicks), and writes every element's box, font, colors and WCAG contrast to JSON.
 - **Measured, not eyeballed.** Element boxes, content-vs-container centering, sibling heights, margins and WCAG contrast, computed from your screenshot.
 - **Annotated screenshots.** Every box is labeled with its task id (`DT-018`), the same id used in the file names and the task list.
 - **One cropped image per issue**, e.g. `screenshots/issues/DT-022_settings-button-height.png`, embedded under each question in the review.
@@ -150,8 +152,24 @@ Attach a screenshot (or run it inside your project) and say:
 - "harsh review of the shop"
 - "critique / roast this UI"
 - or `/harsh-design-critic <request>` in Claude Code
+- `/harsh-design-critic quick <request>` for a fast top-10 pass
 
-The first review in a project asks one short set of questions (audience, languages, monetization, competitor research, screenshots) and remembers the answers. Everything it writes goes to `docs/harsh-design-critic/` in your project:
+### Before it starts, you choose
+Every review starts with one short question. Nothing is captured or marked until you answer:
+
+1. **Quick or Full.** Quick: the top 10 findings at one screen width. Full: every finding, phone + desktop, hover/focus/error states, perception and palette.
+2. **Mark issues on screenshots?** Per-issue images, full screens only, or no images. Marking takes extra credits and time, so it's your call.
+
+| Mode | Images | Measured cost per web page |
+|---|---|---|
+| Quick | full screens only | ~70k tokens · ~2.5 min (product page test: found 14 of its 15 planted issues) |
+| Full | per-issue | ~90k tokens · ~6.5 min (the [blind test](tests/ecommerce-site/README.md): 277k tokens, ~20 min for 3 pages, 42/42 found) |
+
+Quick is mostly **faster** (about 2.7x); it saves about a quarter of the tokens, because most of the cost is reading the skill and the page. Numbers come from single runs; your page will differ.
+
+"No images" is cheapest: measurements and text only. Say it in the request to skip the question, e.g. `/harsh-design-critic quick, no images, review the checkout`.
+
+The first review in a project also asks about audience, languages, monetization and competitor research once, and remembers the answers. Everything it writes goes to `docs/harsh-design-critic/` in your project:
 
 ```
 docs/harsh-design-critic/
@@ -189,7 +207,7 @@ references/                  loaded only when a step needs them
   output-format.md           report layout, question blocks, approval prompt
   tasks-and-log.md           task board, statuses, fixing, review log
   house-standards.md         grading against mobile-game-specs
-scripts/                     measure · annotate · issue_shots · palette · perception · compare · ui_lint
+scripts/                     measure · annotate · issue_shots · palette · perception · compare · ui_lint · web_capture
 templates/ui-tokens.json     starter tokens
 tests/                       one folder per test: README with every finding, review, task board, screenshots
   block-puzzle-hotel-tycoon/ test 1: block puzzle + hotel tycoon

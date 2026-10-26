@@ -21,6 +21,8 @@ DT-004 STILL BROKEN (reported in #2) · DT-007 VERIFIED · score trend Precision
 Precision & polish X · Visual consistency X · Art & palette X · Hierarchy X · Layout X · Game feel X ·
 Flow & FTUE X · Placement logic X · Localization/RTL X · Accessibility X · Audience fit X ·
 Monetization X · Market positioning X · **Overall X** (judgment, not an average; any 🔴 caps it at 5)
+Websites and apps without game mechanics use: Precision & polish · Visual consistency · Hierarchy · Layout & responsive · Content & data accuracy ·
+Forms & states · Accessibility · Trust & conversion · Localization/RTL · **Overall**
 
 ## Evidence
 <links to screens/review-NN_<screen>_annotated.png (every box labeled with its task id), perception sheet if it shows a problem,
@@ -85,6 +87,9 @@ After writing the report and updating DESIGN_TASKS.md and REVIEW_LOG.md, end wit
 > - `skip` · `more detail on Q<n>` · `won't fix Q<n> because …`
 
 If the AskUserQuestion tool is available, also offer the choice there with "Apply my picks (Recommended)" first. Then end the turn. Do not start implementing.
+
+## Quick report (Quick mode)
+Same file name and folder. Keep: Verdict, The consumer's take (max 80 words), Scorecard (short), Findings table with the **top 10** ranked by severity, then "Also seen" (one line each, no Q block), then Q blocks for 🔴 and 🟠 only, then the STOP prompt. Evidence column: the annotated full screen (if images were chosen) plus `file:line` or the measurement; no per-issue crops in Quick. Skip UI measurements tables, competition, flow map and the long coverage list; one line instead: "Quick review: <width>, default state; not checked: other widths, states, perception, market." End with: "Want the full review? It covers every finding, phone + desktop and all states."
 
 ## Store mode (only when asked)
 Use market research (or run it) to collect the top 5 competitors' icons and first screenshots; board at real store size. Judge small-size icon readability and stand-out, whether the first two screenshots sell the core loop without reading, text overlay legibility, style consistency, localized RTL listing, title and short description. Same severity, Q-block and scorecard system, with categories Icon · Screenshots · Copy · Localization · Stand-out.

@@ -1,12 +1,15 @@
 # Screenshots: asking, capturing, naming, linking
 
-## Ask once per project
-Add this to the one-time profile question (stored in REVIEW_LOG.md as `Screenshots: <choice>`):
-"Should I review with screenshots? I'll save them under `docs/harsh-design-critic/design-review/screenshots/`, one image per issue, named after its task id (e.g. `DT-007_settings-button-height.png`) and linked from the task file and the review."
-- **Per-issue (recommended):** full annotated screens + one cropped image per issue + before/after proof.
+## Asking (every review, before any capture)
+The marking question is part of the start-of-review message in `SKILL.md`, with its credit and time warning. Store the answer in REVIEW_LOG.md as `Screenshots: <choice> (<date>)` and offer it as the default next time.
+- **Per-issue:** full annotated screens + one cropped image per issue + before/after proof.
 - **Full screens only:** annotated full screens, no per-issue crops.
 - **No images:** text and measurements only (still measured with scripts if screenshot files exist).
-If the user only gave code and a live build can run safely, the same question covers capturing it: "Can I run the build and capture the screens myself?" Never capture without a yes. The user can change the choice any time ("stop saving screenshots", "save screenshots this time").
+Never capture without a yes. The user can change the choice any time ("stop saving screenshots", "save screenshots this time").
+
+## Capturing websites
+`python scripts/web_capture.py <page.html|url> --out docs/harsh-design-critic/design-review/screenshots/screens --name review-03_checkout --widths 1440,390 --states states.json`
+Use its PNGs as the screens and its JSON for every number (boxes, fonts, colors, contrast). Name states after what they show (`invalid-email`, `cta-hover`). Quick mode: one width, no states.
 
 ## Folder and names
 ```

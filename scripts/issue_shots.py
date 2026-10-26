@@ -43,6 +43,8 @@ def font(size):
 
 
 def main():
+    if len(sys.argv) < 3 or sys.argv[1] in ("-h", "--help"):
+        sys.exit(__doc__)
     spec_path, out_dir = sys.argv[1:3]
     spec = json.load(open(spec_path))
     src = Image.open(spec["source"]).convert("RGB")

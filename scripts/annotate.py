@@ -65,6 +65,8 @@ def badge(draw, x, y, n, scale):
 
 
 def main():
+    if len(sys.argv) < 4 or sys.argv[1] in ("-h", "--help"):
+        sys.exit(__doc__)
     src, spec_path, out = sys.argv[1:4]
     im = Image.open(src).convert("RGBA")
     spec = json.load(open(spec_path))
