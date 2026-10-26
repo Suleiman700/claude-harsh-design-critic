@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/images/banner.png" alt="Harsh Design Critic: measures every pixel, marks every flaw, changes nothing until you approve" width="100%"></p>
+<p align="center"><img src="docs/images/banner.png" alt="Harsh Design Critic: reviews your game, app or website like a publisher; every flaw measured in pixels, marked and ranked" width="100%"></p>
 
 # Harsh Design Critic — a Claude skill
 
@@ -33,30 +33,30 @@ Every example below is a real finding from one of the [three test reviews](#real
 Blur, grayscale and three colorblind simulations in one sheet. They show problems a normal look misses.
 
 <p align="center">
-  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_perception.png" width="45%" alt="Nova Survivor perception sheet">
-  <img src="docs/images/perception-sheet.png" width="45%" alt="Block Wood perception sheet">
-  <br><em>Left: in grayscale STORY is brighter than START, so the second option is the loudest button. Right: the green, purple and pink pieces turn into one gray.</em>
+  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_perception.png" width="45%" alt="Survivor shooter perception sheet">
+  <img src="docs/images/perception-sheet.png" width="45%" alt="Block puzzle perception sheet">
+  <br><em>Left (survivor shooter): in grayscale STORY is brighter than START, so the second option is the loudest button. Right (block puzzle): the green, purple and pink pieces turn into one gray.</em>
 </p>
 
 ## Real-world tests
 
-The skill has been run on three real mobile games. Each test has a full review, annotated screens and one cropped image per issue.
+The skill has been run on screens from four real mobile games in three tests. Each test has a full review, annotated screens and one cropped image per issue.
 
-| # | Game | Genre | Screens | Score | 🔴 | 🟠 | 🟡 | Full review |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Block Wood + hotel tycoon | Block puzzle + tycoon | 6 | **4/10** | 3 | 11 | 4 | [review](examples/sample-review/design-review/reviews/2026-10-26-review.md) · [tasks](examples/sample-review/design-review/DESIGN_TASKS.md) |
-| 2 | Nova Survivor | Synthwave survivor shooter | 2 | **5/10** | 0 | 6 | 6 | [review](examples/nova-survivor/design-review/reviews/2026-10-26-review.md) |
-| 3 | Word Wheel | Swipe-to-spell word puzzle | 4 | **6/10** | 0 | 3 | 5 | [review](examples/word-wheel/design-review/reviews/2026-10-26-review.md) |
+| # | Games tested | Screens | Score | 🔴 | 🟠 | 🟡 | Full review |
+|---|---|---|---|---|---|---|---|
+| 1 | A block puzzle game + a hotel tycoon game | 6 | **4/10** | 3 | 11 | 4 | [review](examples/sample-review/design-review/reviews/2026-10-26-review.md) · [tasks](examples/sample-review/design-review/DESIGN_TASKS.md) |
+| 2 | A synthwave survivor shooter | 2 | **5/10** | 0 | 6 | 6 | [review](examples/nova-survivor/design-review/reviews/2026-10-26-review.md) |
+| 3 | A swipe-to-spell word puzzle | 4 | **6/10** | 0 | 3 | 5 | [review](examples/word-wheel/design-review/reviews/2026-10-26-review.md) |
 
 Every box on the annotated screens is labeled with its task id, so you can find it in the review, and the cyan lines are measurements in pixels.
 
-### Test 1 · Block Wood + hotel tycoon — 4/10
+### Test 1 · Block puzzle game + hotel tycoon game — 4/10
 
 > "The board looks like a game. Everything around it looks like a prototype."
 
-- Shop prices sit on stray dark stripes, 28px off center, and every buy button glows at 0 gems.
-- Booster bar mixes OS emoji with white glyphs; cards hug the left edge (3px vs 32px).
-- Hotel labels pile on top of each other and the receptionist's name is cut by the screen edge.
+- Puzzle shop: prices sit on stray dark stripes, 28px off center, and every buy button glows at 0 gems.
+- Puzzle booster bar mixes OS emoji with white glyphs; cards hug the left edge (3px vs 32px).
+- Tycoon: hotel labels pile on top of each other and the receptionist's name is cut by the screen edge.
 
 <p align="center">
   <img src="docs/images/shop-annotated.png" width="32%" alt="Shop screen, annotated">
@@ -64,11 +64,11 @@ Every box on the annotated screens is labeled with its task id, so you can find 
   <img src="docs/images/booster-annotated.png" width="32%" alt="Gameplay booster bar, annotated">
 </p>
 <p align="center">
-  <img src="docs/images/hotel-annotated.png" width="40%" alt="Hotel game HUD, annotated">
+  <img src="docs/images/hotel-annotated.png" width="40%" alt="Hotel tycoon HUD, annotated">
   <img src="docs/images/reception-annotated.png" width="55%" alt="Reception with overlapping labels, annotated">
 </p>
 
-### Test 2 · Nova Survivor — 5/10
+### Test 2 · Synthwave survivor shooter — 5/10
 
 > "Strong synthwave mood, but the menu is four different button systems and the shop sells things I can't afford without telling me."
 
@@ -77,11 +77,11 @@ Every box on the annotated screens is labeled with its task id, so you can find 
 - Shop: no can't-afford state, level pips at 1.42:1, 315px of dead space under BACK.
 
 <p align="center">
-  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_annotated.png" width="40%" alt="Nova Survivor main menu, annotated">
-  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="40%" alt="Nova Survivor shop, annotated">
+  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_annotated.png" width="40%" alt="Survivor shooter main menu, annotated">
+  <img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="40%" alt="Survivor shooter shop, annotated">
 </p>
 
-### Test 3 · Word Wheel — 6/10
+### Test 3 · Swipe-to-spell word puzzle — 6/10
 
 > "Clean and calm, but locked, unearned and disabled all look the same faded teal."
 
@@ -91,10 +91,10 @@ Every box on the annotated screens is labeled with its task id, so you can find 
 - What works: home layout margins equal to the pixel, one tight palette, primary action always in thumb reach.
 
 <p align="center">
-  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="24%" alt="Word Wheel home, annotated">
-  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="24%" alt="Word Wheel daily reward, annotated">
-  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="24%" alt="Word Wheel challenges, annotated">
-  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="24%" alt="Word Wheel packs, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="24%" alt="Word puzzle home, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="24%" alt="Word puzzle daily reward, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="24%" alt="Word puzzle challenges, annotated">
+  <img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="24%" alt="Word puzzle packs, annotated">
 </p>
 
 The clean screenshots used in tests 2 and 3 are in [`tests/screenshots/`](tests/screenshots/), with the phone status bar and gesture bar removed.
@@ -185,9 +185,9 @@ references/                  loaded only when a step needs them
   house-standards.md         grading against mobile-game-specs
 scripts/                     measure · annotate · issue_shots · palette · perception · compare · ui_lint
 templates/ui-tokens.json     starter tokens
-examples/sample-review/      test 1: Block Wood + hotel tycoon (report, task board, all images)
-examples/nova-survivor/      test 2: Nova Survivor (menu + shop)
-examples/word-wheel/         test 3: Word Wheel (home, reward, challenges, packs)
+examples/sample-review/      test 1: block puzzle + hotel tycoon (report, task board, all images)
+examples/nova-survivor/      test 2: survivor shooter (menu + shop)
+examples/word-wheel/         test 3: word puzzle (home, reward, challenges, packs)
 tests/screenshots/           clean phone screenshots used by tests 2 and 3
 ```
 
