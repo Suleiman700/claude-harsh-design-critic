@@ -1,0 +1,30 @@
+{
+  "_note": "Fill from the project's real values, confirm with the user, then ui_lint.py enforces fontSizes, radii and colors.",
+  "spacing": [4, 8, 16, 24, 32],
+  "screenMargin": 16,
+  "heights": {
+    "topBar": 70,
+    "iconButton": 70,
+    "primaryButton": 96,
+    "listButton": 96,
+    "tab": 72
+  },
+  "radii": [12, 20, 999],
+  "fontSizes": [18, 22, 28, 36, 56],
+  "textStroke": { "game": 4, "small": 2 },
+  "colors": [
+    "#173A86",
+    "#306AD9",
+    "#FDF2D8",
+    "#5CCB32",
+    "#FFD23F",
+    "#FFFFFF"
+  ],
+  "roles": {
+    "background": "#173A86",
+    "surface": "#FDF2D8",
+    "primaryAction": "#5CCB32",
+    "currencyHard": "#4FC3F7",
+    "danger": "#F2645A"
+  }
+}
