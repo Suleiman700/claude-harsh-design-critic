@@ -8,6 +8,10 @@
 </p>
 
 <p align="center">
+  <b>42/42</b> planted defects found · <b>0</b> false positives · <b>5</b> projects reviewed · <b>21</b> kinds of check
+</p>
+
+<p align="center">
   <a href="#-what-is-it">What is it</a> ·
   <a href="#-showcase">Showcase</a> ·
   <a href="#-features">Features</a> ·
@@ -19,11 +23,9 @@
 
 ## 🔍 What is it
 
-Ask most AI tools to review your UI and you get *"looks clean, maybe tweak the colors."* Harsh Design Critic is the opposite.
+Most AI reviews say *"looks clean, maybe tweak the colors."* This skill makes Claude act like a **senior reviewer who looks at hundreds of projects a day**, hunting the smallest things that make a product feel cheap, and a **skeptical player or shopper** looking for any reason to leave.
 
-It makes Claude act like a **senior reviewer who looks at hundreds of projects a day** and has learned to spot, in seconds, the things that make a product feel cheap: a button 4px taller than its neighbors, a title centered on the wrong thing, a price that doesn't match its discount badge, a label that won't fit once it's translated. At the same time it plays the **skeptical player or shopper** who is looking for any reason to uninstall or leave the page.
-
-It doesn't guess. It runs scripts on your screenshots (or renders your web pages itself) and reports **numbers**: sizes, gaps, offsets, WCAG contrast ratios. Each issue is boxed on the screenshot, cropped into its own image, and turned into a question with 2–3 fixes and a recommended pick.
+It doesn't guess. It measures your screenshots (or renders your web pages itself) and reports **numbers**: sizes, gaps, offsets, contrast. Each issue is marked on the screenshot and turned into a question with 2–3 fixes and a recommended pick.
 
 **Why it's useful**
 
@@ -86,15 +88,25 @@ Three store pages (landing, product, checkout) were built with **42 hidden defec
 
 Real findings from the tests above.
 
+| | Example | What it found |
+|---|---|---|
+| **Mismatched sizes in a row** | <img src="docs/images/DT-022_settings-button-height.png" width="220" alt="Settings button vs pills"> | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
+| **Off-center content** | <img src="docs/images/DT-001_shop-price-overlay_row1.png" width="220" alt="Price off center"> | Price centered in a stray dark overlay, **28px** off the button center |
+| **Low contrast** | <img src="tests/nova-survivor/design-review/screenshots/issues/DT-011_level-pips.png" width="220" alt="Level pips contrast"> | Level pips at **1.42:1** (WCAG needs 3:1) |
+| **Wrong numbers** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-016_discount-math.png" width="220" alt="Discount math"> | "Save 20%" badge on **$89 → $74**, which is **16.9%** off |
+| **Hover, focus and error states** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-042_place-order-hover.png" width="220" alt="Hover contrast"> | "Place order" is fine at rest (5.17:1) but drops to **2.54:1** on hover |
+| **Phone layout** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-036_checkout-mobile-overflow.png" width="220" alt="Mobile overflow"> | At **390px** the form cards run **8px** past the screen edge |
+
+<details>
+<summary><b>See all 21 kinds of check</b></summary>
+<br>
+
 **On screen: pixels, sizes, color**
 
 | | Example | What it found |
 |---|---|---|
-| **Mismatched sizes in a row** | <img src="docs/images/DT-022_settings-button-height.png" width="220" alt="Settings button vs pills"> | Settings button **109px** tall next to **70px** currency pills (Δ39px, 56%) |
 | **Four sizes where there should be one** | <img src="tests/nova-survivor/design-review/screenshots/issues/DT-001_menu-button-widths.png" width="220" alt="Menu button widths"> | Menu buttons **861 / 599 / 1071 / 605px** wide, left edge jumps from 164 to 59 |
-| **Off-center content** | <img src="docs/images/DT-001_shop-price-overlay_row1.png" width="220" alt="Price off center"> | Price centered in a stray dark overlay, **28px** off the button center |
 | **Centered on the wrong thing** | <img src="tests/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png" width="220" alt="Title off center"> | Title centered between two buttons, **35px** left of the screen center |
-| **Low contrast** | <img src="tests/nova-survivor/design-review/screenshots/issues/DT-011_level-pips.png" width="220" alt="Level pips contrast"> | Level pips at **1.42:1** (WCAG needs 3:1) |
 | **Missing states** | <img src="tests/nova-survivor/design-review/screenshots/issues/DT-008_cant-afford.png" width="220" alt="Can't afford"> | Balance **50**, cheapest price **375**, every price still looks buyable |
 | **Uneven gaps and margins** | <img src="tests/nova-survivor/design-review/screenshots/issues/DT-002_grid-gaps.png" width="220" alt="Grid gaps"> | Column gap **7px** vs row gap **23px** |
 | **Mixed icon styles** | <img src="docs/images/DT-005_mixed-icons_pause.png" width="220" alt="Emoji icon"> | Home is an **OS emoji** next to white glyph icons |
@@ -110,14 +122,13 @@ For websites, the skill renders the pages itself and forces each state (click, t
 
 | | Example | What it found |
 |---|---|---|
-| **Wrong numbers** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-016_discount-math.png" width="220" alt="Discount math"> | "Save 20%" badge on **$89 → $74**, which is **16.9%** off |
 | **Broken promises across pages** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-035_shipping-charged.png" width="220" alt="Shipping charged"> | Checkout charges **$5.99** shipping; the landing page promised free delivery over $60 |
-| **Hover, focus and error states** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-042_place-order-hover.png" width="220" alt="Hover contrast"> | "Place order" is fine at rest (5.17:1) but drops to **2.54:1** on hover |
 | **Keyboard order** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-038_cvc-expiry-tab-order.png" width="220" alt="Tab order"> | Tab goes **CVC → Expiry** while the screen shows Expiry → CVC |
 | **Form input limits** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-037_expiry-maxlength.png" width="220" alt="Expiry maxlength"> | Placeholder asks for "MM/YY" (5 chars) but the field stops at **4**: "12/2" |
 | **Values past their limits** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-021_qty-negative.png" width="220" alt="Negative quantity"> | Three taps on minus: quantity **−2**, no lower limit |
-| **Phone layout** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-036_checkout-mobile-overflow.png" width="220" alt="Mobile overflow"> | At **390px** the form cards run **8px** past the screen edge |
 | **Brand consistency** | <img src="tests/ecommerce-site/design-review/screenshots/issues/DT-052_brand-inconsistency.png" width="220" alt="Brand inconsistency"> | Three brand names, three primary colors, headers **72 / 64 / 64px** in one flow |
+
+</details>
 
 ### How a review looks
 
@@ -136,29 +147,49 @@ Then it **stops**. You reply `approve all`, `approve Q1, Q4`, `Q1b, Q2a` or `app
 
 ## ✨ Features
 
-**Review**
-- ⚡ **Quick or Full mode:** Quick gives the top 10 findings at one width; Full covers everything, phone + desktop.
-- 📏 **Measured, not eyeballed:** element boxes, centering, sibling sizes, margins and WCAG contrast, computed from your screenshot.
-- 🗣️ **Consumer verdict and a score out of 10**, plus a scorecard across 13 areas and a list of what it could not check.
-- 👁️ **Perception tests:** blur/squint, grayscale, deuteranopia, protanopia, tritanopia.
-- 🎮 **Game depth:** juice checklist, first-session flow, ads and economy judged retention-first, placement logic ("does a supply shelf belong in the lobby?").
-- 🌍 **Arabic / Hebrew / RTL checks:** mirroring, letter shaping, clipped diacritics, fallback fonts, overflow.
-- 📊 **Market comparison** (asks permission once): 3–5 competitors, a comparison board, a feature matrix and an HTML report.
+<table>
+<tr>
+<td valign="top" width="50%">
 
-**Websites**
-- 🌐 **One-command capture:** `web_capture.py` renders a page at any width and in forced states (hover, focus, errors, clicks), and writes every element's box, font, colors and contrast to JSON.
-- ⌨️ **Interaction checks:** keyboard order, form limits, numbers and promises across pages.
+**🔎 Review**
+- Quick (top 10, one width) or Full (everything, phone + desktop)
+- Measured sizes, centering, margins and WCAG contrast
+- Consumer verdict, score out of 10, 13-area scorecard
+- Perception tests: blur, grayscale, 3 color-blind modes
+- Game depth: juice, first session, ads and economy, placement logic
+- Arabic / Hebrew / RTL checks
+- Competitor comparison with an HTML report (asks first)
 
-**Output**
-- 🖼️ **Annotated screenshots:** every box labeled with its task id, the same id used in file names and the task list.
-- ✂️ **One cropped image per issue**, embedded under its question in the review. Marking is optional, since it costs extra time and credits.
-- 📋 **A living task board** (`DESIGN_TASKS.md`) with severity, effort, options, your choice, status and proof.
-- 📜 **Review log** that calls out issues reported before and still broken.
+</td>
+<td valign="top" width="50%">
 
-**Fixing**
-- 🛡️ **Read-only until approved:** it never edits your project during a review.
-- 🔁 **Before/after proof:** after a fix it re-captures, re-measures and saves a proof image. A fix that works on one screen size only is marked ⚠️ partial, not ✅.
-- 🧹 **UI tokens + lint:** `ui_lint.py` scans Godot, React Native and HTML/CSS code for emoji icons, mismatched row heights, off-token values, removed focus outlines and pages with no phone layout.
+**🌐 Websites**
+- `web_capture.py` renders any width, in hover, focus, error and click states
+- Every element's box, font, colors and contrast saved to JSON
+- Keyboard order, form limits, prices and promises across pages
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+**🖼️ Output**
+- Annotated screenshots, every box labeled with its task id
+- One cropped image per issue (optional)
+- Living task board: severity, effort, your choice, status, proof
+- Review log that flags issues still broken since last time
+
+</td>
+<td valign="top">
+
+**🛠️ Fixing**
+- Read-only until you approve
+- Before/after proof image for each fix; ⚠️ partial if it works on one screen size only
+- `ui_lint.py` for Godot, React Native and HTML/CSS: emoji icons, row heights, off-token values, missing focus outlines, no phone layout
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -194,12 +225,20 @@ Every review starts with one short question, and nothing is captured until you a
 1. **Quick or Full?** Quick: top 10 findings at one screen width. Full: every finding, phone + desktop, hover/focus/error states, perception and palette.
 2. **Mark issues on screenshots?** Per-issue images, full screens only, or no images.
 
+<details>
+<summary><b>Quick vs Full: time and token cost</b></summary>
+<br>
+
 | Mode | Images | Measured cost per web page |
 |---|---|---|
 | Quick | full screens only | ~70k tokens · ~2.5 min (product page test: 14 of 15 planted issues found) |
 | Full | per-issue | ~90k tokens · ~6.5 min (the [blind test](tests/ecommerce-site/README.md): 277k tokens, ~20 min for 3 pages, 42/42 found) |
 
-Quick is mostly **faster** (about 2.7x); it saves about a quarter of the tokens, because most of the cost is reading the skill and the page. Numbers come from single runs; your page will differ. "No images" is cheapest. Say it in the request to skip the question, e.g. `/harsh-design-critic quick, no images, review the checkout`.
+Quick is mostly **faster** (about 2.7x); it saves about a quarter of the tokens, because most of the cost is reading the skill and the page. Numbers come from single runs; your page will differ.
+
+</details>
+
+"No images" is cheapest. Say it in the request to skip the question, e.g. `/harsh-design-critic quick, no images, review the checkout`.
 
 Later commands: `fix DT-007` · `next task` · `what's left` · `verify` · `research competitors` · `lint` · `store mode`.
 
