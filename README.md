@@ -59,7 +59,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 #### Block puzzle
 **Shop**
 
-<p align="center"><img src="docs/images/shop-annotated.png" width="45%" alt="Puzzle shop, annotated"></p>
+<p align="center"><img src="docs/images/shop-annotated.png" width="260" alt="Puzzle shop, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -71,7 +71,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;006](examples/sample-review/design-review/screenshots/issues/DT-006_shop-description-contrast.png) | 🟡&nbsp;Minor | Descriptions `#6B7BA8` on cream: **3.76:1**, below 4.5:1 |
 **Gameplay and booster bar**
 
-<p align="center"><img src="docs/images/booster-annotated.png" width="45%" alt="Puzzle gameplay booster bar, annotated"></p>
+<p align="center"><img src="docs/images/booster-annotated.png" width="260" alt="Puzzle gameplay booster bar, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -85,7 +85,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;012](examples/sample-review/design-review/screenshots/issues/DT-012_tray-lip.png) | ⚪&nbsp;Nitpick | Tray frame has a cream bottom lip, the board frame doesn't |
 **Pause menu**
 
-<p align="center"><img src="docs/images/pause-annotated.png" width="45%" alt="Puzzle pause menu, annotated"></p>
+<p align="center"><img src="docs/images/pause-annotated.png" width="260" alt="Puzzle pause menu, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -96,7 +96,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;020](examples/sample-review/design-review/screenshots/issues/DT-020_pause-label-contrast.png) | 🟡&nbsp;Minor | Button labels `#C3D1EE` on blue: **3.99:1** |
 **Top bar**
 
-<p align="center"><img src="docs/images/topbar-annotated.png" width="90%" alt="Puzzle top bar, annotated"></p>
+<p align="center"><img src="docs/images/topbar-annotated.png" width="560" alt="Puzzle top bar, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -109,14 +109,14 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 **HUD**
 
-<p align="center"><img src="docs/images/hotel-annotated.png" width="45%" alt="Tycoon HUD, annotated"></p>
+<p align="center"><img src="docs/images/hotel-annotated.png" width="340" alt="Tycoon HUD, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
 | [DT&#8209;014](examples/sample-review/design-review/screenshots/issues/DT-014_world-label-clipped.png) | 🔴&nbsp;Critical | "2nd Reception" name plate clipped by the screen edge and covered by the Free $ button |
 **Reception**
 
-<p align="center"><img src="docs/images/reception-annotated.png" width="55%" alt="Tycoon reception, annotated"></p>
+<p align="center"><img src="docs/images/reception-annotated.png" width="420" alt="Tycoon reception, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -132,7 +132,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 **Main menu**
 
-<p align="center"><img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_annotated.png" width="45%" alt="Survivor shooter main menu, annotated"></p>
+<p align="center"><img src="examples/nova-survivor/design-review/screenshots/screens/review-01_main-menu_annotated.png" width="260" alt="Survivor shooter main menu, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -145,7 +145,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;007](examples/nova-survivor/design-review/screenshots/issues/DT-007_quit-button.png) | 🟡&nbsp;Minor | QUIT (605×114) takes the thumb zone; Android back already exits |
 **Shop**
 
-<p align="center"><img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="45%" alt="Survivor shooter shop, annotated"></p>
+<p align="center"><img src="examples/nova-survivor/design-review/screenshots/screens/review-01_shop_annotated.png" width="260" alt="Survivor shooter shop, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -163,7 +163,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 
 **Home**
 
-<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="40%" alt="Word puzzle home, annotated"></p>
+<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_home_annotated.png" width="260" alt="Word puzzle home, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -171,7 +171,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;007](examples/word-wheel/design-review/screenshots/issues/DT-007_nav-label-padding.png) | 🟡&nbsp;Minor | "More games" label has **12px** padding in its tile: Arabic or Hebrew won't fit |
 **Daily reward**
 
-<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="40%" alt="Word puzzle daily reward, annotated"></p>
+<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_daily-reward_annotated.png" width="260" alt="Word puzzle daily reward, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -179,7 +179,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;005](examples/word-wheel/design-review/screenshots/issues/DT-005_coin-icon-styles.png) | 🟡&nbsp;Minor | Day 1 coin is an outline ring; every other coin is filled |
 **Challenges**
 
-<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="40%" alt="Word puzzle challenges, annotated"></p>
+<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_challenges_annotated.png" width="260" alt="Word puzzle challenges, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
@@ -188,7 +188,7 @@ Every box on the annotated screens is labeled with its task id, the same id as i
 | [DT&#8209;002](examples/word-wheel/design-review/screenshots/issues/DT-002_header-title-offset.png) | 🟡&nbsp;Minor | Title centered between two buttons, **35px** left of the screen center |
 **Packs**
 
-<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="40%" alt="Word puzzle packs, annotated"></p>
+<p align="center"><img src="examples/word-wheel/design-review/screenshots/screens/review-01_packs_annotated.png" width="260" alt="Word puzzle packs, annotated"></p>
 
 | ID | Level | Issue |
 |---|---|---|
