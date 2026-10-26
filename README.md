@@ -140,7 +140,7 @@ For one project only, clone into `<project>/.claude/skills/harsh-design-critic` 
 
 The repo includes the test reviews and their screenshots (about 38 MB). To install only the skill, use the ZIP download below: it leaves the tests out.
 
-**Claude app:** download this repo as a ZIP (**Code → Download ZIP**, about 200 KB, tests and images excluded) and upload it as a skill in the app's settings.
+**Claude app:** download this repo as a ZIP (**Code → Download ZIP**, about 50 KB, tests and images excluded) and upload it as a skill in the app's settings.
 
 ## Use
 
