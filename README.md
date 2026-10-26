@@ -324,6 +324,7 @@ examples/sample-review/      test 1: block puzzle + hotel tycoon (report, task b
 examples/nova-survivor/      test 2: survivor shooter (menu + shop)
 examples/word-wheel/         test 3: word puzzle (home, reward, challenges, packs)
 tests/screenshots/           clean phone screenshots used by tests 2 and 3
+tests/ecommerce-site/        test 4: blind test, 3 store pages with 42 planted defects, answer key, full review
 ```
 
 ## License
