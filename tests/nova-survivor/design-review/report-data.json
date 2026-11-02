@@ -1,0 +1,461 @@
+{
+  "project": "Nova Survivor (test)",
+  "updated": "2026-10-26",
+  "reviews": [
+    {
+      "id": "01",
+      "date": "2026-10-26",
+      "title": "Main menu + Shop (Upgrades)",
+      "mode": "Full · phone screenshots",
+      "score": 5,
+      "verdict": "Strong synthwave mood, but the menu is four different button systems and the shop sells things I can't afford without telling me.",
+      "consumer_take": "The first second works: pink neon title, perspective grid, it looks like a game. Then I look at the buttons and nothing lines up. START is wide, Daily reward is narrow, the grid below is wider than both, and its two columns almost touch. STORY is the same yellow as the free-coins button, so I'm not sure if it's a mode or an ad. There's a DEV button in the corner. In the shop I have 50 coins and every upgrade costs 375 or more, yet every price looks the same as if I could tap it. Half the screen under BACK is empty while the list I came for is cut off. I'd keep playing, but I'd stop trusting the menus.",
+      "strengths": [
+        "Strong, consistent theme: neon palette and grid floor read as one style on both screens.",
+        "Shop cards are consistent: 548/549px wide, 24px gutter, equal row pitch.",
+        "Grid edge margins are equal (59px left and right) and every menu button is centered on the screen (cx 594.5)."
+      ],
+      "scorecard": {
+        "Precision & polish": 4,
+        "Visual consistency": 5,
+        "Art & palette": 7,
+        "Hierarchy": 4,
+        "Layout": 4,
+        "Placement logic": 5,
+        "Accessibility": 5,
+        "Audience fit": 6,
+        "Monetization": 5,
+        "Overall": 5
+      },
+      "report_md": "reviews/2026-10-26-review.md",
+      "coverage": "Audited: main menu, shop Upgrades tab, one phone size, English. Not audited: Ships and Store tabs, gameplay HUD, pause, other sizes, Arabic/Hebrew.",
+      "screens": [
+        {
+          "label": "Main menu",
+          "image": "screenshots/screens/review-01_main-menu_annotated.png"
+        },
+        {
+          "label": "Shop",
+          "image": "screenshots/screens/review-01_shop_annotated.png"
+        },
+        {
+          "label": "Colorblind sheet",
+          "image": "screenshots/screens/review-01_main-menu_perception.png"
+        }
+      ],
+      "findings": [
+        {
+          "q": 1,
+          "id": "DT-001",
+          "severity": "major",
+          "area": "Menu",
+          "finding": "Four button widths (861 / 599 / 1071 / 605) and five heights (133 / 132 / 106 / 117 / 114); left edge jumps 164 → 59",
+          "image": "screenshots/issues/DT-001_menu-button-widths.png",
+          "title": "Four button widths, two column edges: 861 / 599 / 1071 / 605 px",
+          "options": [
+            {
+              "key": "a",
+              "text": "One column width for everything: all buttons 1071 wide, aligned with the grid",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Two tiers: START/STORY 861, grid shrunk to 861 total (2 × 419 + 23 gap), Daily reward and QUIT 599",
+              "effort": "S"
+            },
+            {
+              "key": "c",
+              "text": "Rebuild the menu on one 8px spacing scale with height tokens 132 / 112",
+              "effort": "M"
+            }
+          ],
+          "pick": "b",
+          "pick_reason": "it keeps START dominant and gives the whole menu one left and right edge",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              170,
+              936,
+              1024,
+              1070
+            ]
+          }
+        },
+        {
+          "q": 2,
+          "id": "DT-008",
+          "severity": "major",
+          "area": "Shop",
+          "finding": "Balance 50, cheapest price 375, every price drawn the same `#89899B`",
+          "image": "screenshots/issues/DT-008_cant-afford.png",
+          "title": "Balance 50, every price from 375 to 1500 looks buyable",
+          "options": [
+            {
+              "key": "a",
+              "text": "Price in red `#FF5A6E` when balance < price, and dim the card to 60%",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "(a) plus a \"Need 325 more\" line and a \"Watch ad +100\" shortcut on unaffordable cards",
+              "effort": "M"
+            },
+            {
+              "key": "c",
+              "text": "Add a real Buy button per card with normal / disabled / maxed states",
+              "effort": "M"
+            }
+          ],
+          "pick": "b",
+          "pick_reason": "it fixes the state and turns a dead end into the existing rewarded-ad offer",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              1016,
+              32,
+              1146,
+              97
+            ]
+          }
+        },
+        {
+          "q": 3,
+          "id": "DT-009",
+          "severity": "major",
+          "area": "Shop",
+          "finding": "315px dead space under BACK and 153px above SHOP while the list is cut mid-card",
+          "image": "screenshots/issues/DT-009_dead-space.png",
+          "title": "315px dead space under BACK, list cut off mid-card",
+          "options": [
+            {
+              "key": "a",
+              "text": "Move BACK to the top-left as a back arrow and let the list run to the ad",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Keep BACK at the bottom but dock it 16px above the ad and extend the viewport",
+              "effort": "S"
+            },
+            {
+              "key": "c",
+              "text": "Also shrink the top area: SHOP title into the top bar line",
+              "effort": "M"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "it gives the list the most room and matches where players look for back",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              0,
+              2124,
+              1060,
+              2434
+            ]
+          }
+        },
+        {
+          "q": 4,
+          "id": "DT-003",
+          "severity": "major",
+          "area": "Menu",
+          "finding": "STORY uses the reward yellow of Daily reward and +100",
+          "image": "screenshots/issues/DT-003_story-reads-as-reward.png",
+          "title": "STORY uses the reward yellow",
+          "options": [
+            {
+              "key": "a",
+              "text": "STORY in the cyan secondary style, keep yellow for rewards only",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "STORY as a second pink in outline style",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "one color = one meaning: yellow means free coins",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              162,
+              1096,
+              1026,
+              1233
+            ]
+          }
+        },
+        {
+          "q": 5,
+          "id": "DT-002",
+          "severity": "major",
+          "area": "Menu",
+          "finding": "Grid column gap 7px vs row gap 23px",
+          "image": "screenshots/issues/DT-002_grid-gaps.png",
+          "title": "Grid column gap 7px vs row gap 23px",
+          "options": [
+            {
+              "key": "a",
+              "text": "Column gap 23px (buttons 524 wide)",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Both gaps 16px",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "it matches the existing row rhythm and the main stack gap (29px) better",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              560,
+              1504,
+              630,
+              1652
+            ]
+          }
+        },
+        {
+          "q": 6,
+          "id": "DT-006",
+          "severity": "major",
+          "area": "Menu",
+          "finding": "DEV button visible, label contrast 2.93:1",
+          "image": "screenshots/issues/DT-006_dev-button.png",
+          "title": "DEV button visible, 2.93:1",
+          "options": [
+            {
+              "key": "a",
+              "text": "Hide it in release builds behind a build flag",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Remove it and open dev tools with a 5-tap on the title",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "it's one flag and can't leak to players",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              35,
+              30,
+              205,
+              110
+            ]
+          }
+        },
+        {
+          "q": 7,
+          "id": "DT-010",
+          "severity": "minor",
+          "area": "Shop",
+          "finding": "Margins 23px left vs 45px right; content 11px left of center",
+          "image": "screenshots/issues/DT-010_unequal-margins.png",
+          "title": "Margins 23px left, 45px right",
+          "options": [
+            {
+              "key": "a",
+              "text": "Overlay the scrollbar inside the right margin and set both margins to 32px",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Keep the scrollbar outside and set left = right = 45px",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "margins become equal without losing card width",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              1144,
+              645,
+              1175,
+              1706
+            ]
+          }
+        },
+        {
+          "q": 8,
+          "id": "DT-011",
+          "severity": "minor",
+          "area": "Shop",
+          "finding": "Level pips `#2B2C36` on `#090B16`: 1.42:1",
+          "image": "screenshots/issues/DT-011_level-pips.png",
+          "title": "Level pips 1.42:1, invisible",
+          "options": [
+            {
+              "key": "a",
+              "text": "Empty pips `#5E6280` (3.30:1 on `#090B16`), filled pips in the card's accent color",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Replace pips with \"Lv 0/3\" text",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "it keeps the visual progress and passes 3:1",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              64,
+              698,
+              243,
+              735
+            ]
+          }
+        },
+        {
+          "q": 9,
+          "id": "DT-004",
+          "severity": "minor",
+          "area": "Menu",
+          "finding": "Grid lines and the horizon line run through MISSIONS / HOW TO PLAY",
+          "image": "screenshots/issues/DT-004_lines-through-labels.png",
+          "title": "Background lines run through labels",
+          "options": [
+            {
+              "key": "a",
+              "text": "Grid buttons 85% opaque fill `#0F3F4C`",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Add a 2px dark text outline to button labels",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "the labels stop fighting the floor grid and the neon border stays",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              700,
+              1614,
+              1035,
+              1684
+            ]
+          }
+        },
+        {
+          "q": 10,
+          "id": "DT-005",
+          "severity": "minor",
+          "area": "Menu",
+          "finding": "\"DIFFICULTY: NORMAL\" text is 17px tall with no control look",
+          "image": "screenshots/issues/DT-005_difficulty-label.png",
+          "title": "Difficulty text 17px tall, no affordance",
+          "options": [
+            {
+              "key": "a",
+              "text": "If it's tappable: make it a pill button \"Normal ▾\" ≥ 112px tall",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "If it's info only: move it under START at 24px+",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              459,
+              1389,
+              730,
+              1429
+            ]
+          }
+        },
+        {
+          "q": 11,
+          "id": "DT-012",
+          "severity": "minor",
+          "area": "Shop",
+          "finding": "Tabs \"SHIPS · UPGRADES · Store\": one tab breaks the case; \"Store\" inside \"SHOP\"",
+          "image": "screenshots/issues/DT-012_tab-case.png",
+          "title": "'Store' tab breaks the uppercase set",
+          "options": [
+            {
+              "key": "a",
+              "text": "\"STORE\" and rename it \"COIN PACKS\" so it isn't a store inside the shop",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "\"STORE\" only",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "it fixes the case and the naming confusion in one change",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              892,
+              424,
+              1022,
+              480
+            ]
+          }
+        },
+        {
+          "q": 12,
+          "id": "DT-007",
+          "severity": "minor",
+          "area": "Menu",
+          "finding": "QUIT (605×114) sits in the thumb zone; Android back already exits",
+          "image": "screenshots/issues/DT-007_quit-button.png",
+          "title": "QUIT takes the thumb zone",
+          "options": [
+            {
+              "key": "a",
+              "text": "Remove QUIT, keep Android back to exit with a confirm dialog",
+              "effort": "S"
+            },
+            {
+              "key": "b",
+              "text": "Move it into Settings",
+              "effort": "S"
+            }
+          ],
+          "pick": "a",
+          "pick_reason": "Android players already exit with back, and the free space helps Q1",
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              290,
+              1860,
+              900,
+              1979
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

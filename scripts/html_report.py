@@ -31,6 +31,8 @@ report-data.json:
           "q": 1, "id": "DT-012", "severity": "major",       # critical | major | minor | nitpick
           "area": "Page", "title": "short title", "finding": "the problem, with the key number",
           "where": "src/file.tsx:42", "image": "screenshots/...png", "box": [x1, y1, x2, y2],
+          "screen": {"image": "screenshots/screens/review-02_x_annotated.png", "box": [x1, y1, x2, y2]},
+                                   # with per-issue crops: where the issue sits on the full screen
           "also": [{"label": "Colorblind sheet", "image": "screenshots/...png"}],   # optional supporting images
           "options": [{"key": "a", "text": "...", "effort": "S"}],
           "pick": "a", "pick_reason": "...",
@@ -79,6 +81,12 @@ def validate(data, base):
                 path = f.get(key)
                 if path and not os.path.exists(os.path.join(base, path)):
                     problems.append(f"{fid}: {key} not found: {path}")
+            scr = f.get("screen")
+            if scr is not None:
+                if not os.path.exists(os.path.join(base, scr.get("image", ""))):
+                    problems.append(f"{fid}: screen image not found: {scr.get('image')}")
+                if not isinstance(scr.get("box"), list) or len(scr["box"]) != 4:
+                    problems.append(f"{fid}: screen.box must be [x1, y1, x2, y2]")
             for extra in f.get("also", []):
                 if not os.path.exists(os.path.join(base, extra.get("image", ""))):
                     problems.append(f"{fid}: also image not found: {extra.get('image')}")
@@ -256,6 +264,10 @@ tr.issue.closed td { color: var(--muted); }
 .lb-head .hint { color: #cbd5e1; font-size: 13px; }
 .lb-head a { color: #c7d2fe; }
 .lb-head .icon-btn { background: #fff; }
+.lb-zoom { border-color: #475569; background: transparent; }
+.lb-zoom button { background: transparent; color: #cbd5e1; height: 30px; }
+.lb-zoom button + button { border-left-color: #475569; }
+.lb-zoom button.on { background: #fff; color: #111827; }
 .lb-body { flex: 1; overflow: auto; padding: 0 20px 20px; }
 .lb-stage { position: relative; margin: 0 auto; width: 100%; }
 .lb-stage img { display: block; width: 100%; height: auto; border-radius: 8px; }
@@ -267,6 +279,7 @@ tr.issue.closed td { color: var(--muted); }
 .hotspot span { position: absolute; left: -2px; top: -24px; background: #fde047; color: #111827; font: 700 12px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; border-radius: 5px; white-space: nowrap; opacity: 0; pointer-events: none; }
 .hotspot:hover span, .hotspot:focus-visible span { opacity: 1; }
 .section-label { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background: var(--nitpick-bg); padding: 1px 5px; border-radius: 4px; }
 .where { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; background: var(--nitpick-bg); padding: 2px 6px; border-radius: 5px; }
 .options { display: grid; gap: 8px; }
 .option { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
@@ -357,7 +370,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
 </aside>
 <div class="toast" id="toast"></div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot">
-  <div class="lb-head"><b id="lb-title"></b><span class="hint" id="lb-hint"></span><a class="ext" id="lb-ext" target="_blank" rel="noopener">Open image<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><button class="icon-btn" id="lb-close">Close</button></div>
+  <div class="lb-head"><b id="lb-title"></b><span class="hint" id="lb-hint"></span><div class="seg lb-zoom" role="group" aria-label="Zoom"><button id="lb-fit" class="on" aria-pressed="true">Fit</button><button id="lb-actual" aria-pressed="false">Actual size</button></div><a class="ext" id="lb-ext" target="_blank" rel="noopener">Open image<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><button class="icon-btn" id="lb-close">Close</button></div>
   <div class="lb-issues" id="lb-issues"></div>
   <div class="lb-body" id="lb-body"><div class="lb-stage" id="lb-stage"></div></div>
 </div>
@@ -372,6 +385,8 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
   const STORE = "hdc:" + (DATA.project || "project");
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // Escaped text with `inline code` rendered as code, for findings and options written in Markdown style.
+  const rich = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
 
   const findings = [];
   DATA.reviews.forEach((r) => r.findings.forEach((f) => findings.push({ ...f, review: r })));
@@ -476,7 +491,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
         return `<tr class="issue${isClosed(f) ? " closed" : ""}" data-id="${esc(f.id)}" tabindex="0">
           <td class="id">${esc(f.id)}${f.q ? `<br><span class="meta">Q${esc(f.q)}</span>` : ""}</td>
           <td><span class="sev sev-${esc(f.severity)}">${esc(f.severity)}</span></td>
-          <td class="title-cell"><b>${esc(f.title)}</b><span>${esc(f.finding)}</span></td>
+          <td class="title-cell"><b>${rich(f.title)}</b><span>${rich(f.finding)}</span></td>
           <td class="col-area">${esc(f.area || "")}</td>
           <td class="col-status"><span class="status${isClosed(f) ? " closed" : ""}">${esc(f.status)}</span></td>
           <td>${isClosed(f) ? `<span class="decision">—</span>` : `<span class="decision${isSet(d) ? " set" : ""}">${esc(decisionLabel(d))}${(d.note || "").trim() ? " · note" : ""}</span>`}</td>
@@ -490,9 +505,10 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
   }
 
   // Image viewer: zoom to the issue's box, or show the whole annotated screen.
-  function viewer(src, box, full) {
+  // `screenSrc`: the full annotated screen to open in the viewer (differs from `src` for crops).
+  function viewer(src, box, full, screenSrc) {
     if (!src) return "";
-    return `<div class="viewer-wrap"><div class="img-actions"><a class="img-open" href="${esc(src)}" data-lightbox="${esc(src)}" title="View image (click the marked issues)" aria-label="View image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a><a class="img-open" href="${esc(src)}" target="_blank" rel="noopener" title="Open image in a new tab" aria-label="Open image in a new tab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div><div class="viewer${full ? " full" : ""}" id="viewer"><img src="${esc(src)}" alt="Annotated screenshot" id="v-img">${box && !full ? `<div class="mark" id="v-mark"></div>` : ""}</div></div>
+    return `<div class="viewer-wrap"><div class="img-actions"><a class="img-open" href="${esc(screenSrc || src)}" data-lightbox="${esc(screenSrc || src)}" title="View ${screenSrc && screenSrc !== src ? "full screen" : "image"} (click the marked issues)" aria-label="View image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a><a class="img-open" href="${esc(src)}" target="_blank" rel="noopener" title="Open image in a new tab" aria-label="Open image in a new tab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div><div class="viewer${full ? " full" : ""}" id="viewer"><img src="${esc(src)}" alt="Annotated screenshot" id="v-img">${box && !full ? `<div class="mark" id="v-mark"></div>` : ""}</div></div>
       <div class="viewer-bar">${box ? `<div class="seg" role="group" aria-label="Image view"><button id="v-zoom" aria-pressed="${!full}"${!full ? ' class="on"' : ""}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>Issue</button><button id="v-full" aria-pressed="${full}"${full ? ' class="on"' : ""}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>Whole screen</button></div>` : ""}</div>`;
   }
   function fitViewer(box) {
@@ -526,7 +542,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
     $("d-kicker").innerHTML = `<span class="sev sev-${esc(f.severity)}">${esc(f.severity)}</span> <span class="id">${esc(f.id)}</span> <span class="meta">· Review #${esc(f.review.id)}${f.q ? ` · Q${esc(f.q)}` : ""} · ${esc(f.status)}</span>`;
     // Open issues: each option card is a radio; choosing one means "Fix it" with that option.
     // Closed issues: read-only cards, the applied option marked.
-    const optBody = (o) => `<span class="text"><b>(${esc(o.key)})</b>${esc(o.text)}${o.key === f.pick ? `<span class="pick-tag">MY PICK</span>` : ""}</span>${o.effort ? `<span class="effort">${esc(o.effort)}</span>` : ""}`;
+    const optBody = (o) => `<span class="text"><b>(${esc(o.key)})</b>${rich(o.text)}${o.key === f.pick ? `<span class="pick-tag">MY PICK</span>` : ""}</span>${o.effort ? `<span class="effort">${esc(o.effort)}</span>` : ""}`;
     const opts = (f.options || []).map((o) => isClosed(f)
       ? `<div class="option${o.key === f.chosen ? " chosen" : ""}">${optBody(o)}</div>`
       : `<label class="option"><input type="radio" name="opt" value="${esc(o.key)}"${d.choice === "fix" && (d.option || f.pick) === o.key ? " checked" : ""}>${optBody(o)}</label>`).join("");
@@ -541,14 +557,14 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
       </div>
       <textarea id="note" placeholder="Note or question for this issue (optional)">${esc(d.note || "")}</textarea>`;
     $("d-body").innerHTML = `
-      ${viewer(f.image, f.box, fullView)}
+      ${viewer(f.image, f.box, fullView, f.screen && f.screen.image)}
       ${(f.also || []).length ? `<div class="viewer-bar">See also ${f.also.map((a) => `<a class="bar-btn" href="${esc(a.image)}" data-lightbox="${esc(a.image)}" data-label="${esc(a.label || "")}">${esc(a.label || "image")}</a>`).join("")}</div>` : ""}
-      <h3 class="issue-title" id="d-title">${esc(f.title)}</h3>
+      <h3 class="issue-title" id="d-title">${rich(f.title)}</h3>
       <div class="section-label">Problem</div>
-      <div>${esc(f.finding)}</div>
+      <div>${rich(f.finding)}</div>
       ${f.where ? `<div class="section-label">Where</div><span class="where">${esc(f.where)}</span>` : ""}
       ${opts ? `<div class="section-label">Options${isClosed(f) ? "" : ` <span class="meta" style="text-transform:none;letter-spacing:0;font-weight:500">· pick one to fix it that way</span>`}</div><div class="options" id="options">${opts}</div>` : ""}
-      ${f.pick_reason ? `<p class="meta">My pick (${esc(f.pick)}): ${esc(f.pick_reason)}</p>` : ""}
+      ${f.pick_reason ? `<p class="meta">My pick (${esc(f.pick)}): ${rich(f.pick_reason)}</p>` : ""}
       ${closedBlock}${decideBlock}`;
     fitViewer(f.box);
     const setView = (full) => { if (fullView !== full) { fullView = full; openIssue(f.id, true); } };
@@ -609,7 +625,10 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
 
   // Lightbox: the whole image with a clickable box for every issue marked on it.
   function openLightbox(src, label) {
-    const spots = findings.filter((f) => f.image === src && f.box);
+    // An issue is clickable on this image when it is marked on it: its own image + box,
+    // or (per-issue crops) the full screen it was cropped from.
+    const spotBox = (f) => (f.image === src && f.box) ? f.box : (f.screen && f.screen.image === src ? f.screen.box : null);
+    const spots = findings.filter(spotBox);
     $("lb-title").textContent = label || src.split("/").pop();
     $("lb-hint").textContent = spots.length ? `${spots.length} issue${spots.length === 1 ? "" : "s"} marked · click a dashed box or a name below` : "No issues are linked to boxes on this image";
     $("lb-issues").innerHTML = spots.map((f) => `<button data-id="${esc(f.id)}">${esc(f.id)} · ${esc(f.title)}</button>`).join("");
@@ -624,11 +643,13 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
       spots.map((f) => `<button class="hotspot" data-id="${esc(f.id)}" title="${esc(f.id)} · ${esc(f.title)}"><span>${esc(f.id)} · ${esc(f.title)}</span></button>`).join("");
     const img = $("lb-img");
     const place = () => {
-      const iw = img.naturalWidth;
-      $("lb-stage").style.maxWidth = `${Math.min(iw, $("lightbox").clientWidth - 40)}px`;
+      const iw = img.naturalWidth, ih = img.naturalHeight, body = $("lb-body");
+      // Fit: the whole image inside the window (width and height). Actual size: 1:1, scroll.
+      const fitW = Math.min(iw, body.clientWidth - 40, (body.clientHeight - 20) * iw / ih);
+      $("lb-stage").style.maxWidth = `${lbActual ? iw : Math.max(200, fitW)}px`;
       const s = img.clientWidth / iw;
       $("lb-stage").querySelectorAll(".hotspot").forEach((h) => {
-        const [x1, y1, x2, y2] = findings.find((f) => f.id === h.dataset.id).box;
+        const [x1, y1, x2, y2] = spotBox(findings.find((f) => f.id === h.dataset.id));
         Object.assign(h.style, { left: `${x1 * s - 4}px`, top: `${y1 * s - 4}px`, width: `${(x2 - x1) * s + 8}px`, height: `${(y2 - y1) * s + 8}px` });
       });
     };
@@ -637,9 +658,19 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
     // (always the case for an image already in the cache) and stacks them in a corner.
     $("lightbox").classList.add("open");
     $("lb-body").scrollTop = 0;
+    lbActual = false; $("lb-fit").classList.add("on"); $("lb-actual").classList.remove("on");
     img.complete && img.naturalWidth ? requestAnimationFrame(place) : img.addEventListener("load", place, { once: true });
     window.__lbPlace = place;
   }
+  let lbActual = false;
+  const setZoom = (actual) => {
+    lbActual = actual;
+    $("lb-fit").classList.toggle("on", !actual); $("lb-fit").setAttribute("aria-pressed", String(!actual));
+    $("lb-actual").classList.toggle("on", actual); $("lb-actual").setAttribute("aria-pressed", String(actual));
+    window.__lbPlace && window.__lbPlace();
+  };
+  $("lb-fit").addEventListener("click", () => setZoom(false));
+  $("lb-actual").addEventListener("click", () => setZoom(true));
   function closeLightbox() { $("lightbox").classList.remove("open"); window.__lbPlace = null; }
   $("lb-close").addEventListener("click", closeLightbox);
   $("lightbox").addEventListener("click", (e) => { if (e.target.classList.contains("lb-body")) closeLightbox(); });

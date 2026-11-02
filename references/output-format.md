@@ -104,12 +104,14 @@ One file per project, every review in it, **oldest first** (the page shows them 
       "findings": [ { "q": 1, "id": "DT-012", "severity": "major", "area": "Page",
           "title": "<short>", "finding": "<problem with the key number>", "where": "src/x.tsx:42",
           "image": "<the issue crop, or the annotated full screen it is marked on>", "box": [x1, y1, x2, y2],
+          "screen": {"image": "screenshots/screens/<...>_annotated.png", "box": [x1, y1, x2, y2]},   (per-issue crops)
           "also": [{"label": "Colorblind sheet", "image": "screenshots/screens/<...>_perception.png"}],
           "options": [{"key": "a", "text": "<option>", "effort": "S"}], "pick": "a", "pick_reason": "<why>",
           "status": "TODO", "chosen": null, "result": null, "proof": null } ] } ] }
 ```
 - `severity`: critical · major · minor · nitpick. `status`: the task board status (TODO, APPROVED, DONE, VERIFIED, PARTIAL, FAILED, WONTFIX, WITHDRAWN, ...). VERIFIED, DONE, WONTFIX and WITHDRAWN count as closed.
-- `box` is the issue's box in **image pixels**, the same one given to `annotate.py`/`issue_shots.py`. The page zooms to it; without a box it shows the whole image. With per-issue crops, point `image` at the crop and omit `box`.
+- `box` is the issue's box in **image pixels**, the same one given to `annotate.py`/`issue_shots.py`. The page zooms to it; without a box it shows the whole image.
+- **Per-issue crops:** point `image` at the crop (no `box`) **and** add `"screen": {"image": "<the annotated full screen>", "box": [x1, y1, x2, y2]}` with the same box given to `issue_shots.py`. Without `screen`, the issue can't be clicked on the full screen in the image viewer.
 - If the issue is drawn on an annotated full screen, `image` **must** be that screen and `box` its box there: that is what makes it clickable on the screen in the page. Supporting evidence (a perception sheet, a palette, another state) goes in the optional `"also": [{"label": "...", "image": "..."}]` list, never in place of the screen.
 - Every finding of the review goes in, nitpicks too (with one option if the Markdown lists it in one line).
 - Paths are relative to `design-review/`. `html_report.py` refuses missing images, duplicate ids, unknown severities and a `pick` that isn't one of the options; fix the JSON and re-run.

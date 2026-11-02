@@ -8,6 +8,7 @@
 - **Clickable screenshots:** the image viewer shows the whole annotated screen with a dashed box on every issue marked on it, plus a button per issue; clicking either opens that issue. Corner buttons open the viewer or the raw image in a new tab.
 - **Options are the choice:** each option card is selectable (choosing one means "fix it that way"); "Fix it" alone takes My pick. Closed issues show the applied option, the result and the before/after proof.
 - New optional `also` list per finding for supporting images (perception sheet, palette); an issue drawn on an annotated screen must point at that screen and its box so it stays clickable.
+- Per-issue crops stay clickable too: a finding can carry `"screen": {"image", "box"}`, the full screen it was cropped from, so the viewer outlines it there and the crop's panel opens that full screen.
 
 ## 1.2.0 — 2026-10-26
 - **Ask before starting:** every review now starts with one question, Quick or Full, and whether to mark issues on screenshots, with a warning that marking costs extra credits and time. Nothing is captured before the answer. Skip it by saying it in the request (`quick, no images`).
