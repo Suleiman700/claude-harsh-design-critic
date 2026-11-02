@@ -267,6 +267,7 @@ tr.issue.closed td { color: var(--muted); }
 .hotspot span { position: absolute; left: -2px; top: -24px; background: #fde047; color: #111827; font: 700 12px/1 ui-monospace, Menlo, monospace; padding: 5px 6px; border-radius: 5px; white-space: nowrap; opacity: 0; pointer-events: none; }
 .hotspot:hover span, .hotspot:focus-visible span { opacity: 1; }
 .section-label { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background: var(--nitpick-bg); padding: 1px 5px; border-radius: 4px; }
 .where { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; background: var(--nitpick-bg); padding: 2px 6px; border-radius: 5px; }
 .options { display: grid; gap: 8px; }
 .option { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
@@ -372,6 +373,8 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
   const STORE = "hdc:" + (DATA.project || "project");
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // Escaped text with `inline code` rendered as code, for findings and options written in Markdown style.
+  const rich = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
 
   const findings = [];
   DATA.reviews.forEach((r) => r.findings.forEach((f) => findings.push({ ...f, review: r })));
@@ -476,7 +479,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
         return `<tr class="issue${isClosed(f) ? " closed" : ""}" data-id="${esc(f.id)}" tabindex="0">
           <td class="id">${esc(f.id)}${f.q ? `<br><span class="meta">Q${esc(f.q)}</span>` : ""}</td>
           <td><span class="sev sev-${esc(f.severity)}">${esc(f.severity)}</span></td>
-          <td class="title-cell"><b>${esc(f.title)}</b><span>${esc(f.finding)}</span></td>
+          <td class="title-cell"><b>${rich(f.title)}</b><span>${rich(f.finding)}</span></td>
           <td class="col-area">${esc(f.area || "")}</td>
           <td class="col-status"><span class="status${isClosed(f) ? " closed" : ""}">${esc(f.status)}</span></td>
           <td>${isClosed(f) ? `<span class="decision">—</span>` : `<span class="decision${isSet(d) ? " set" : ""}">${esc(decisionLabel(d))}${(d.note || "").trim() ? " · note" : ""}</span>`}</td>
@@ -526,7 +529,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
     $("d-kicker").innerHTML = `<span class="sev sev-${esc(f.severity)}">${esc(f.severity)}</span> <span class="id">${esc(f.id)}</span> <span class="meta">· Review #${esc(f.review.id)}${f.q ? ` · Q${esc(f.q)}` : ""} · ${esc(f.status)}</span>`;
     // Open issues: each option card is a radio; choosing one means "Fix it" with that option.
     // Closed issues: read-only cards, the applied option marked.
-    const optBody = (o) => `<span class="text"><b>(${esc(o.key)})</b>${esc(o.text)}${o.key === f.pick ? `<span class="pick-tag">MY PICK</span>` : ""}</span>${o.effort ? `<span class="effort">${esc(o.effort)}</span>` : ""}`;
+    const optBody = (o) => `<span class="text"><b>(${esc(o.key)})</b>${rich(o.text)}${o.key === f.pick ? `<span class="pick-tag">MY PICK</span>` : ""}</span>${o.effort ? `<span class="effort">${esc(o.effort)}</span>` : ""}`;
     const opts = (f.options || []).map((o) => isClosed(f)
       ? `<div class="option${o.key === f.chosen ? " chosen" : ""}">${optBody(o)}</div>`
       : `<label class="option"><input type="radio" name="opt" value="${esc(o.key)}"${d.choice === "fix" && (d.option || f.pick) === o.key ? " checked" : ""}>${optBody(o)}</label>`).join("");
@@ -543,12 +546,12 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
     $("d-body").innerHTML = `
       ${viewer(f.image, f.box, fullView)}
       ${(f.also || []).length ? `<div class="viewer-bar">See also ${f.also.map((a) => `<a class="bar-btn" href="${esc(a.image)}" data-lightbox="${esc(a.image)}" data-label="${esc(a.label || "")}">${esc(a.label || "image")}</a>`).join("")}</div>` : ""}
-      <h3 class="issue-title" id="d-title">${esc(f.title)}</h3>
+      <h3 class="issue-title" id="d-title">${rich(f.title)}</h3>
       <div class="section-label">Problem</div>
-      <div>${esc(f.finding)}</div>
+      <div>${rich(f.finding)}</div>
       ${f.where ? `<div class="section-label">Where</div><span class="where">${esc(f.where)}</span>` : ""}
       ${opts ? `<div class="section-label">Options${isClosed(f) ? "" : ` <span class="meta" style="text-transform:none;letter-spacing:0;font-weight:500">· pick one to fix it that way</span>`}</div><div class="options" id="options">${opts}</div>` : ""}
-      ${f.pick_reason ? `<p class="meta">My pick (${esc(f.pick)}): ${esc(f.pick_reason)}</p>` : ""}
+      ${f.pick_reason ? `<p class="meta">My pick (${esc(f.pick)}): ${rich(f.pick_reason)}</p>` : ""}
       ${closedBlock}${decideBlock}`;
     fitViewer(f.box);
     const setView = (full) => { if (fullView !== full) { fullView = full; openIssue(f.id, true); } };
