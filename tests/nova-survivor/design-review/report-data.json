@@ -71,7 +71,16 @@
           ],
           "pick": "b",
           "pick_reason": "it keeps START dominant and gives the whole menu one left and right edge",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              170,
+              936,
+              1024,
+              1070
+            ]
+          }
         },
         {
           "q": 2,
@@ -100,7 +109,16 @@
           ],
           "pick": "b",
           "pick_reason": "it fixes the state and turns a dead end into the existing rewarded-ad offer",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              1016,
+              32,
+              1146,
+              97
+            ]
+          }
         },
         {
           "q": 3,
@@ -129,7 +147,16 @@
           ],
           "pick": "a",
           "pick_reason": "it gives the list the most room and matches where players look for back",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              0,
+              2124,
+              1060,
+              2434
+            ]
+          }
         },
         {
           "q": 4,
@@ -153,7 +180,16 @@
           ],
           "pick": "a",
           "pick_reason": "one color = one meaning: yellow means free coins",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              162,
+              1096,
+              1026,
+              1233
+            ]
+          }
         },
         {
           "q": 5,
@@ -177,7 +213,16 @@
           ],
           "pick": "a",
           "pick_reason": "it matches the existing row rhythm and the main stack gap (29px) better",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              560,
+              1504,
+              630,
+              1652
+            ]
+          }
         },
         {
           "q": 6,
@@ -201,7 +246,16 @@
           ],
           "pick": "a",
           "pick_reason": "it's one flag and can't leak to players",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              35,
+              30,
+              205,
+              110
+            ]
+          }
         },
         {
           "q": 7,
@@ -225,7 +279,16 @@
           ],
           "pick": "a",
           "pick_reason": "margins become equal without losing card width",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              1144,
+              645,
+              1175,
+              1706
+            ]
+          }
         },
         {
           "q": 8,
@@ -249,7 +312,16 @@
           ],
           "pick": "a",
           "pick_reason": "it keeps the visual progress and passes 3:1",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              64,
+              698,
+              243,
+              735
+            ]
+          }
         },
         {
           "q": 9,
@@ -273,7 +345,16 @@
           ],
           "pick": "a",
           "pick_reason": "the labels stop fighting the floor grid and the neon border stays",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              700,
+              1614,
+              1035,
+              1684
+            ]
+          }
         },
         {
           "q": 10,
@@ -297,7 +378,16 @@
           ],
           "pick": "a",
           "pick_reason": "",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              459,
+              1389,
+              730,
+              1429
+            ]
+          }
         },
         {
           "q": 11,
@@ -321,7 +411,16 @@
           ],
           "pick": "a",
           "pick_reason": "it fixes the case and the naming confusion in one change",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_shop_annotated.png",
+            "box": [
+              892,
+              424,
+              1022,
+              480
+            ]
+          }
         },
         {
           "q": 12,
@@ -345,7 +444,16 @@
           ],
           "pick": "a",
           "pick_reason": "Android players already exit with back, and the free space helps Q1",
-          "status": "TODO"
+          "status": "TODO",
+          "screen": {
+            "image": "screenshots/screens/review-01_main-menu_annotated.png",
+            "box": [
+              290,
+              1860,
+              900,
+              1979
+            ]
+          }
         }
       ]
     }

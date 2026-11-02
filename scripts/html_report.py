@@ -31,6 +31,8 @@ report-data.json:
           "q": 1, "id": "DT-012", "severity": "major",       # critical | major | minor | nitpick
           "area": "Page", "title": "short title", "finding": "the problem, with the key number",
           "where": "src/file.tsx:42", "image": "screenshots/...png", "box": [x1, y1, x2, y2],
+          "screen": {"image": "screenshots/screens/review-02_x_annotated.png", "box": [x1, y1, x2, y2]},
+                                   # with per-issue crops: where the issue sits on the full screen
           "also": [{"label": "Colorblind sheet", "image": "screenshots/...png"}],   # optional supporting images
           "options": [{"key": "a", "text": "...", "effort": "S"}],
           "pick": "a", "pick_reason": "...",
@@ -79,6 +81,12 @@ def validate(data, base):
                 path = f.get(key)
                 if path and not os.path.exists(os.path.join(base, path)):
                     problems.append(f"{fid}: {key} not found: {path}")
+            scr = f.get("screen")
+            if scr is not None:
+                if not os.path.exists(os.path.join(base, scr.get("image", ""))):
+                    problems.append(f"{fid}: screen image not found: {scr.get('image')}")
+                if not isinstance(scr.get("box"), list) or len(scr["box"]) != 4:
+                    problems.append(f"{fid}: screen.box must be [x1, y1, x2, y2]")
             for extra in f.get("also", []):
                 if not os.path.exists(os.path.join(base, extra.get("image", ""))):
                     problems.append(f"{fid}: also image not found: {extra.get('image')}")
@@ -493,9 +501,10 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
   }
 
   // Image viewer: zoom to the issue's box, or show the whole annotated screen.
-  function viewer(src, box, full) {
+  // `screenSrc`: the full annotated screen to open in the viewer (differs from `src` for crops).
+  function viewer(src, box, full, screenSrc) {
     if (!src) return "";
-    return `<div class="viewer-wrap"><div class="img-actions"><a class="img-open" href="${esc(src)}" data-lightbox="${esc(src)}" title="View image (click the marked issues)" aria-label="View image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a><a class="img-open" href="${esc(src)}" target="_blank" rel="noopener" title="Open image in a new tab" aria-label="Open image in a new tab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div><div class="viewer${full ? " full" : ""}" id="viewer"><img src="${esc(src)}" alt="Annotated screenshot" id="v-img">${box && !full ? `<div class="mark" id="v-mark"></div>` : ""}</div></div>
+    return `<div class="viewer-wrap"><div class="img-actions"><a class="img-open" href="${esc(screenSrc || src)}" data-lightbox="${esc(screenSrc || src)}" title="View ${screenSrc && screenSrc !== src ? "full screen" : "image"} (click the marked issues)" aria-label="View image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a><a class="img-open" href="${esc(src)}" target="_blank" rel="noopener" title="Open image in a new tab" aria-label="Open image in a new tab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div><div class="viewer${full ? " full" : ""}" id="viewer"><img src="${esc(src)}" alt="Annotated screenshot" id="v-img">${box && !full ? `<div class="mark" id="v-mark"></div>` : ""}</div></div>
       <div class="viewer-bar">${box ? `<div class="seg" role="group" aria-label="Image view"><button id="v-zoom" aria-pressed="${!full}"${!full ? ' class="on"' : ""}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>Issue</button><button id="v-full" aria-pressed="${full}"${full ? ' class="on"' : ""}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>Whole screen</button></div>` : ""}</div>`;
   }
   function fitViewer(box) {
@@ -544,7 +553,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
       </div>
       <textarea id="note" placeholder="Note or question for this issue (optional)">${esc(d.note || "")}</textarea>`;
     $("d-body").innerHTML = `
-      ${viewer(f.image, f.box, fullView)}
+      ${viewer(f.image, f.box, fullView, f.screen && f.screen.image)}
       ${(f.also || []).length ? `<div class="viewer-bar">See also ${f.also.map((a) => `<a class="bar-btn" href="${esc(a.image)}" data-lightbox="${esc(a.image)}" data-label="${esc(a.label || "")}">${esc(a.label || "image")}</a>`).join("")}</div>` : ""}
       <h3 class="issue-title" id="d-title">${rich(f.title)}</h3>
       <div class="section-label">Problem</div>
@@ -612,7 +621,10 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
 
   // Lightbox: the whole image with a clickable box for every issue marked on it.
   function openLightbox(src, label) {
-    const spots = findings.filter((f) => f.image === src && f.box);
+    // An issue is clickable on this image when it is marked on it: its own image + box,
+    // or (per-issue crops) the full screen it was cropped from.
+    const spotBox = (f) => (f.image === src && f.box) ? f.box : (f.screen && f.screen.image === src ? f.screen.box : null);
+    const spots = findings.filter(spotBox);
     $("lb-title").textContent = label || src.split("/").pop();
     $("lb-hint").textContent = spots.length ? `${spots.length} issue${spots.length === 1 ? "" : "s"} marked · click a dashed box or a name below` : "No issues are linked to boxes on this image";
     $("lb-issues").innerHTML = spots.map((f) => `<button data-id="${esc(f.id)}">${esc(f.id)} · ${esc(f.title)}</button>`).join("");
@@ -631,7 +643,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
       $("lb-stage").style.maxWidth = `${Math.min(iw, $("lightbox").clientWidth - 40)}px`;
       const s = img.clientWidth / iw;
       $("lb-stage").querySelectorAll(".hotspot").forEach((h) => {
-        const [x1, y1, x2, y2] = findings.find((f) => f.id === h.dataset.id).box;
+        const [x1, y1, x2, y2] = spotBox(findings.find((f) => f.id === h.dataset.id));
         Object.assign(h.style, { left: `${x1 * s - 4}px`, top: `${y1 * s - 4}px`, width: `${(x2 - x1) * s + 8}px`, height: `${(y2 - y1) * s + 8}px` });
       });
     };
