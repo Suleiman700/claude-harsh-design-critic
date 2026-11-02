@@ -264,6 +264,10 @@ tr.issue.closed td { color: var(--muted); }
 .lb-head .hint { color: #cbd5e1; font-size: 13px; }
 .lb-head a { color: #c7d2fe; }
 .lb-head .icon-btn { background: #fff; }
+.lb-zoom { border-color: #475569; background: transparent; }
+.lb-zoom button { background: transparent; color: #cbd5e1; height: 30px; }
+.lb-zoom button + button { border-left-color: #475569; }
+.lb-zoom button.on { background: #fff; color: #111827; }
 .lb-body { flex: 1; overflow: auto; padding: 0 20px 20px; }
 .lb-stage { position: relative; margin: 0 auto; width: 100%; }
 .lb-stage img { display: block; width: 100%; height: auto; border-radius: 8px; }
@@ -366,7 +370,7 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
 </aside>
 <div class="toast" id="toast"></div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot">
-  <div class="lb-head"><b id="lb-title"></b><span class="hint" id="lb-hint"></span><a class="ext" id="lb-ext" target="_blank" rel="noopener">Open image<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><button class="icon-btn" id="lb-close">Close</button></div>
+  <div class="lb-head"><b id="lb-title"></b><span class="hint" id="lb-hint"></span><div class="seg lb-zoom" role="group" aria-label="Zoom"><button id="lb-fit" class="on" aria-pressed="true">Fit</button><button id="lb-actual" aria-pressed="false">Actual size</button></div><a class="ext" id="lb-ext" target="_blank" rel="noopener">Open image<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a><button class="icon-btn" id="lb-close">Close</button></div>
   <div class="lb-issues" id="lb-issues"></div>
   <div class="lb-body" id="lb-body"><div class="lb-stage" id="lb-stage"></div></div>
 </div>
@@ -639,8 +643,10 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
       spots.map((f) => `<button class="hotspot" data-id="${esc(f.id)}" title="${esc(f.id)} · ${esc(f.title)}"><span>${esc(f.id)} · ${esc(f.title)}</span></button>`).join("");
     const img = $("lb-img");
     const place = () => {
-      const iw = img.naturalWidth;
-      $("lb-stage").style.maxWidth = `${Math.min(iw, $("lightbox").clientWidth - 40)}px`;
+      const iw = img.naturalWidth, ih = img.naturalHeight, body = $("lb-body");
+      // Fit: the whole image inside the window (width and height). Actual size: 1:1, scroll.
+      const fitW = Math.min(iw, body.clientWidth - 40, (body.clientHeight - 20) * iw / ih);
+      $("lb-stage").style.maxWidth = `${lbActual ? iw : Math.max(200, fitW)}px`;
       const s = img.clientWidth / iw;
       $("lb-stage").querySelectorAll(".hotspot").forEach((h) => {
         const [x1, y1, x2, y2] = spotBox(findings.find((f) => f.id === h.dataset.id));
@@ -652,9 +658,19 @@ footer { max-width: 1240px; margin: 40px auto 0; padding: 20px 24px 90px; color:
     // (always the case for an image already in the cache) and stacks them in a corner.
     $("lightbox").classList.add("open");
     $("lb-body").scrollTop = 0;
+    lbActual = false; $("lb-fit").classList.add("on"); $("lb-actual").classList.remove("on");
     img.complete && img.naturalWidth ? requestAnimationFrame(place) : img.addEventListener("load", place, { once: true });
     window.__lbPlace = place;
   }
+  let lbActual = false;
+  const setZoom = (actual) => {
+    lbActual = actual;
+    $("lb-fit").classList.toggle("on", !actual); $("lb-fit").setAttribute("aria-pressed", String(!actual));
+    $("lb-actual").classList.toggle("on", actual); $("lb-actual").setAttribute("aria-pressed", String(actual));
+    window.__lbPlace && window.__lbPlace();
+  };
+  $("lb-fit").addEventListener("click", () => setZoom(false));
+  $("lb-actual").addEventListener("click", () => setZoom(true));
   function closeLightbox() { $("lightbox").classList.remove("open"); window.__lbPlace = null; }
   $("lb-close").addEventListener("click", closeLightbox);
   $("lightbox").addEventListener("click", (e) => { if (e.target.classList.contains("lb-body")) closeLightbox(); });
