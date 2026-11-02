@@ -143,7 +143,33 @@ Q4. 🟠 Settings button h=109 next to pills h=70 (Δ39px, 56%)  (DT-022)
 
 Then it **stops**. You reply `approve all`, `approve Q1, Q4`, `Q1b, Q2a` or `approve quick wins`.
 
-Prefer clicking to typing? Pick the **HTML** (or **Both**) report format at the start. The skill writes `docs/harsh-design-critic/design-review/REPORT.html` inside your project: every review on one page, an issue table per review, and a side panel per issue with its screenshot zoomed to the marked box, the options and the pick. Mark each issue **Leave it · Fix it · Won't fix · Ask a question**, add notes, press **Copy decisions** and paste the list back to Claude. Every fix updates the Markdown and the HTML together.
+Prefer clicking to typing? See the [interactive HTML report](#-interactive-html-report).
+
+### 🧭 Interactive HTML report
+
+Pick **HTML** or **Both** when the review starts, and the skill writes `docs/harsh-design-critic/design-review/REPORT.html` into your project. Double-click it; it works offline.
+
+![HTML report: every review with its issue table, severity, status and your decision](docs/images/html-report-overview.png)
+
+- **Every review on one page**, oldest first, each behind its own divider. Reviews collapse and expand (remembered per browser); filter by severity, status or text.
+- **Click an issue** to open it: the screenshot zoomed to the marked box (or the whole screen), the problem, `file:line`, and the options with My pick tagged.
+- **Decide right there:** click an option card to fix it that way, or choose Leave it, Won't fix or Ask a question, and add a note.
+- **Click issues on the screenshot:** the image viewer outlines every marked issue; click one to open it.
+- **Links reopen an issue:** the address keeps `#issue=DT-008`, so a refresh or a shared link opens the same issue.
+- **Closed issues** show what was applied, the result and the before/after proof.
+
+![An issue open in the side panel: screenshot, problem, selectable options and your decision with a note](docs/images/html-report-issue.png)
+
+Press **Copy decisions** and paste the list back to Claude:
+
+```
+Design review decisions — Nova Survivor (test)
+1. fix DT-001 b (option b: Two tiers: START/STORY 861, grid shrunk to 861 total (2 × 419 + 23 gap), Daily reward and QUIT 599) — Q1, review #01: Four button widths, two column edges: 861 / 599 / 1071 / 605 px
+2. fix DT-008 b (option b: (a) plus a "Need 325 more" line and a "Watch ad +100" shortcut on unaffordable cards) — Q2, review #01: Balance 50, every price from 375 to 1500 looks buyable — note: Show the ad shortcut only after level 3
+3. question DT-006 — Q6, review #01: DEV button visible, 2.93:1 — Is DEV hidden in store builds already?
+```
+
+Claude treats `fix` lines as approvals (with your note as a constraint), answers `question` lines before touching that task, and records `won't fix` reasons. The page is built by `scripts/html_report.py` from `report-data.json`, which the skill updates after every review and every fix, so the Markdown and the HTML always show the same state. Try it: [tests/nova-survivor/design-review/REPORT.html](tests/nova-survivor/design-review/REPORT.html) (download the repo and open the file).
 
 ---
 
@@ -227,6 +253,7 @@ Every review starts with one short question, and nothing is captured until you a
 
 1. **Quick or Full?** Quick: top 10 findings at one screen width. Full: every finding, phone + desktop, hover/focus/error states, perception and palette.
 2. **Mark issues on screenshots?** Per-issue images, full screens only, or no images.
+3. **Report format?** Markdown, an [interactive HTML report](#-interactive-html-report), or both (recommended).
 
 <details>
 <summary><b>Quick vs Full: time and token cost</b></summary>
@@ -255,6 +282,7 @@ docs/harsh-design-critic/
   market-research/    INDEX.md · competitors/ · gap-table.md (only when research is allowed)
   design-review/
     REVIEW_LOG.md · DESIGN_TASKS.md · ui-tokens.json
+    report-data.json · REPORT.html   (HTML format)
     reviews/2026-10-26-review.md
     screenshots/screens/  review-01_shop_annotated.png …
     screenshots/issues/   DT-001_shop-price-overlay.png …
