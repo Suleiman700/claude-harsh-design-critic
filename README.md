@@ -143,6 +143,8 @@ Q4. 🟠 Settings button h=109 next to pills h=70 (Δ39px, 56%)  (DT-022)
 
 Then it **stops**. You reply `approve all`, `approve Q1, Q4`, `Q1b, Q2a` or `approve quick wins`.
 
+Prefer clicking to typing? Pick the **HTML** (or **Both**) report format at the start. The skill writes `docs/harsh-design-critic/design-review/REPORT.html` inside your project: every review on one page, an issue table per review, and a side panel per issue with its screenshot zoomed to the marked box, the options and the pick. Mark each issue **Leave it · Fix it · Won't fix · Ask a question**, add notes, press **Copy decisions** and paste the list back to Claude. Every fix updates the Markdown and the HTML together.
+
 ---
 
 ## ✨ Features
@@ -159,6 +161,7 @@ Then it **stops**. You reply `approve all`, `approve Q1, Q4`, `Q1b, Q2a` or `app
 - Game depth: juice, first session, ads and economy, placement logic
 - Arabic / Hebrew / RTL checks
 - Competitor comparison with an HTML report (asks first)
+- Interactive HTML report: issue tables per review, zoom-to-issue screenshots, decisions and notes, one-click copy
 
 </td>
 <td valign="top" width="50%">

@@ -88,6 +88,33 @@ After writing the report and updating DESIGN_TASKS.md and REVIEW_LOG.md, end wit
 
 If the AskUserQuestion tool is available, also offer the choice there with "Apply my picks (Recommended)" first. Then end the turn. Do not start implementing.
 
+With HTML or Both, also add one line before the reply options: "Open `docs/harsh-design-critic/design-review/REPORT.html` to go through the issues, mark each one and copy your decisions back here."
+
+## HTML report (when the user chose HTML or Both)
+`design-review/report-data.json` is the single source for the page; `scripts/html_report.py <design-review dir>` turns it into `design-review/REPORT.html` (self-contained, opens offline with a double-click, images linked relative to `design-review/`). Never edit `REPORT.html` by hand; regenerate it.
+
+One file per project, every review in it, **oldest first** (the page shows them in that order, each behind a "Review #NN · date" divider). Append a new review; never drop old ones, since they hold the history of what was fixed.
+```
+{ "project": "<name>", "updated": "YYYY-MM-DD",
+  "reviews": [ { "id": "02", "date": "YYYY-MM-DD", "title": "<screen/feature>", "mode": "Full · desktop 1440",
+      "score": 5, "verdict": "<one sentence>", "consumer_take": "<the paragraph>", "strengths": ["..."],
+      "scorecard": {"Precision & polish": 5, "Overall": 5}, "report_md": "reviews/<file>.md",
+      "coverage": "<audited / not audited>",
+      "screens": [{"label": "Default", "image": "screenshots/screens/review-02_<screen>_annotated.png"}],
+      "findings": [ { "q": 1, "id": "DT-012", "severity": "major", "area": "Page",
+          "title": "<short>", "finding": "<problem with the key number>", "where": "src/x.tsx:42",
+          "image": "<the issue crop, or the annotated full screen it is marked on>", "box": [x1, y1, x2, y2],
+          "also": [{"label": "Colorblind sheet", "image": "screenshots/screens/<...>_perception.png"}],
+          "options": [{"key": "a", "text": "<option>", "effort": "S"}], "pick": "a", "pick_reason": "<why>",
+          "status": "TODO", "chosen": null, "result": null, "proof": null } ] } ] }
+```
+- `severity`: critical · major · minor · nitpick. `status`: the task board status (TODO, APPROVED, DONE, VERIFIED, PARTIAL, FAILED, WONTFIX, WITHDRAWN, ...). VERIFIED, DONE, WONTFIX and WITHDRAWN count as closed.
+- `box` is the issue's box in **image pixels**, the same one given to `annotate.py`/`issue_shots.py`. The page zooms to it; without a box it shows the whole image. With per-issue crops, point `image` at the crop and omit `box`.
+- If the issue is drawn on an annotated full screen, `image` **must** be that screen and `box` its box there: that is what makes it clickable on the screen in the page. Supporting evidence (a perception sheet, a palette, another state) goes in the optional `"also": [{"label": "...", "image": "..."}]` list, never in place of the screen.
+- Every finding of the review goes in, nitpicks too (with one option if the Markdown lists it in one line).
+- Paths are relative to `design-review/`. `html_report.py` refuses missing images, duplicate ids, unknown severities and a `pick` that isn't one of the options; fix the JSON and re-run.
+- The footer credits the skill and its license; leave it in.
+
 ## Quick report (Quick mode)
 Same file name and folder. Keep: Verdict, The consumer's take (max 80 words), Scorecard (short), Findings table with the **top 10** ranked by severity, then "Also seen" (one line each, no Q block), then Q blocks for 🔴 and 🟠 only, then the STOP prompt. Evidence column: the annotated full screen (if images were chosen) plus `file:line` or the measurement; no per-issue crops in Quick. Skip UI measurements tables, competition, flow map and the long coverage list; one line instead: "Quick review: <width>, default state; not checked: other widths, states, perception, market." End with: "Want the full review? It covers every finding, phone + desktop and all states."
 
