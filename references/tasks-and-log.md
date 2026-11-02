@@ -56,7 +56,7 @@ Later sessions (by task id): `fix DT-007` (uses the stored pick unless an option
 3. IN PROGRESS → take a "before" capture (`screenshots/proof/<id>_before.png`) of the **same screen, state and size** as the original evidence → apply only that option → DONE.
 4. Re-capture the same screen, state and size; re-measure against "Done when"; save `<id>_after.png`, build `<id>_proof.png` (`tokens-devices-perception.md`) and link it in the task.
 5. VERIFIED (link proof) · PARTIAL (works only from one camera position, one screen size, or one language) · FAILED (say why) · or "not observed" if the state wasn't reached in this run. Never mark VERIFIED without seeing it.
-6. Append a results table to that review's report under `## Fix results`, and update the board and scorecard:
+6. Append a results table to that review's report under `## Fix results`, and update the board and scorecard. With HTML or Both, also set `status`, `chosen`, `result` and `proof` on the finding in `report-data.json` and re-run `html_report.py`, in the same step, so `REPORT.html` never shows a stale state:
 ```
 | Q | Task | Option applied | Result | Proof |
 |---|------|----------------|--------|-------|

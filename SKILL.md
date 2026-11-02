@@ -14,7 +14,11 @@ Before reading project files, capturing or measuring anything, send ONE short me
    - **Per-issue**: annotated full screens + one cropped image per issue (most credits, slowest)
    - **Full screens only**: one annotated image per screen (fewer credits)
    - **No images**: text and measurements only (cheapest, fastest; screenshots are still measured with the scripts, just not marked)
-3. **Capture permission**, only if there is a live build or URL and no screenshots: "Can I run it and capture the screens myself?"
+3. **Report format.** Where the user reads the review:
+   - **Markdown**: `reviews/<date>-review.md` only
+   - **HTML**: an interactive `REPORT.html` in the project, next to the review files. One page for every review so far, each behind a divider, with an issue table per review; clicking an issue opens its annotated screenshot zoomed to the marked box, the description, options and My pick. The user marks each issue (Leave it · Fix it with an option · Won't fix · Ask a question), adds notes, and presses **Copy decisions** to paste the list back here
+   - **Both** (recommended: the Markdown stays the readable record, the HTML is for deciding)
+4. **Capture permission**, only if there is a live build or URL and no screenshots: "Can I run it and capture the screens myself?"
 Save the answers in REVIEW_LOG.md. Never start capturing or annotating before the user has chosen.
 
 ## Quick mode
@@ -54,6 +58,7 @@ Run them with the skill's own environment when it exists: `<skill dir>/.venv/bin
 - `palette.py` — dominant colors as hex + swatch strip
 - `perception.py` — blur/squint, grayscale, deuteranopia, protanopia, tritanopia contact sheet
 - `compare.py` — before/after proof images and competitor comparison boards
+- `html_report.py` — builds the interactive `REPORT.html` from `report-data.json` (validates it first; `--check` validates only). Run it after every review and every fix when the user chose HTML or Both
 - `web_capture.py` — **websites:** full-page screenshots at several widths (phone widths too) and forced states (hover, focus, clicks, scripts), plus a JSON of every visible element: box, font, colors, radius, padding and WCAG contrast. Use it instead of writing browser scripts by hand; measure from its JSON
 - `ui_lint.py` — scans Godot, React Native / JS and HTML/CSS for emoji icons, token sprawl and violations and overflow risks; Godot rows for mismatched sibling heights; HTML/CSS for removed focus outlines and pages with no phone layout. It reads code, not the rendered page: measure sizes with the scripts above
 - `templates/ui-tokens.json` — starter tokens file
@@ -64,6 +69,7 @@ Measure with the scripts whenever a screenshot file exists. Look at every annota
 ```
 docs/harsh-design-critic/
   design-review/   REVIEW_LOG.md · DESIGN_TASKS.md · ui-tokens.json · lint-report.md
+                   report-data.json · REPORT.html   (HTML format: data + generated page)
                    reviews/<YYYY-MM-DD>-review.md
                    screenshots/ screens/ (captures, annotated, perception, palette) · issues/ (DT-xxx_<slug>.png) · proof/
   market-research/ INDEX.md · competitors/<slug>/ · comparison-board-<date>.png · gap-table.md · report-<date>.html
@@ -77,6 +83,6 @@ Any doc or note created later (including while fixing) also goes under `docs/har
 4. **Market research** if allowed or asked (`market-research.md`). Reuse research under ~30 days old.
 5. **Inspect** (`inspection-checklist.md`, plus the matching specs from `house-standards.md` when they exist): measurement tables, precision defects, placement logic, cross-screen consistency, screen checklist. Then tokens, perception tests, device matrix and `ui_lint.py` (`tokens-devices-perception.md`).
 6. **Feel, flow, economy, consumer criteria, positioning** where relevant (`feel-flow-economy.md`).
-7. **Write the review** (`output-format.md`; Quick mode uses its Quick report): consumer verdict, scorecard, evidence, findings, measurements, competition, coverage, then one Q block per finding with options and My pick. Save it, update DESIGN_TASKS.md and REVIEW_LOG.md.
+7. **Write the review** (`output-format.md`; Quick mode uses its Quick report): consumer verdict, scorecard, evidence, findings, measurements, competition, coverage, then one Q block per finding with options and My pick. Save it, update DESIGN_TASKS.md and REVIEW_LOG.md. HTML or Both: add the review and its findings to `report-data.json` (format in `output-format.md` → HTML report) and run `html_report.py`; link `REPORT.html` in the final message.
 8. **STOP.** End with the approval prompt from `output-format.md`. Do not start implementing.
-9. **When the user approves**, follow `tasks-and-log.md` → Fixing: chosen option only, severity order, re-capture the same screen/state/size, re-measure, proof image, results table.
+9. **When the user approves**, follow `tasks-and-log.md` → Fixing: chosen option only, severity order, re-capture the same screen/state/size, re-measure, proof image, results table. Decisions pasted from `REPORT.html` arrive as numbered lines (`fix DT-014 b — … — note: …`, `won't fix DT-019 because …`, `question DT-015 — … — …`): treat `fix` lines as approvals with that option and the note as a constraint, answer `question` lines before touching that task, record `won't fix` reasons. After every fix, update the Markdown files **and** `report-data.json`, then re-run `html_report.py`, so both formats always show the same state.

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0 — 2026-11-02
+- **HTML report:** the start-of-review question now asks for the report format: Markdown, HTML or both. HTML writes `design-review/REPORT.html` in the project, built by the new `html_report.py` from `design-review/report-data.json`. Every review appears on one page behind its own divider, with an issue table per review. Clicking an issue opens its annotated screenshot zoomed to the marked box, with the problem, `file:line`, options and My pick.
+- **Decide in the browser:** mark each issue Leave it, Fix it (with an option), Won't fix or Ask a question, add notes, and press **Copy decisions**. The copied lines (`fix DT-014 b — … — note: …`) paste straight back into Claude, which treats them as approvals, questions and won't-fix reasons.
+- **Always in sync:** `report-data.json` is the single source for the page. Every review and every fix updates it along with the Markdown files, then regenerates `REPORT.html`.
+- **Navigating the page:** reviews collapse and expand (all collapsed by default, remembered per browser), with Expand all / Collapse all and a back-to-top button. Opening an issue expands its review and scrolls its row into view; the URL keeps `#issue=DT-xxx`, so a refresh or a shared link reopens it.
+- **Clickable screenshots:** the image viewer shows the whole annotated screen with a dashed box on every issue marked on it, plus a button per issue; clicking either opens that issue. Corner buttons open the viewer or the raw image in a new tab.
+- **Options are the choice:** each option card is selectable (choosing one means "fix it that way"); "Fix it" alone takes My pick. Closed issues show the applied option, the result and the before/after proof.
+- New optional `also` list per finding for supporting images (perception sheet, palette); an issue drawn on an annotated screen must point at that screen and its box so it stays clickable.
+
 ## 1.2.0 — 2026-10-26
 - **Ask before starting:** every review now starts with one question, Quick or Full, and whether to mark issues on screenshots, with a warning that marking costs extra credits and time. Nothing is captured before the answer. Skip it by saying it in the request (`quick, no images`).
 - **Quick mode** (`/harsh-design-critic quick …`): top 10 findings, one width, default state, short report with Q blocks for Critical/Major only.
